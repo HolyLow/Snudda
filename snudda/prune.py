@@ -597,7 +597,7 @@ class SnuddaPrune(object):
     with open(self.histFile["meta/configFile"][()],"r") as f:
       self.config = json.load(f)    
     
-    self.channelID = self.histFile["network/neurons/channelID"][()]
+    self.unitID = self.histFile["network/neurons/unitID"][()]
 
     # Normally we use type names as lookups, but since we will do this
     # many millions of times, we create an temporary typeID number
@@ -669,7 +669,7 @@ class SnuddaPrune(object):
 
     self.config = json.loads(self.histFile["meta/config"][()])
 
-    self.channelID = self.histFile["network/neurons/channelID"][()]
+    self.unitID = self.histFile["network/neurons/unitID"][()]
     
     # Normally we use type names as lookups, but since we will do this
     # many millions of times, we create an temporary typeID number
@@ -679,7 +679,7 @@ class SnuddaPrune(object):
 
     for name, definition in self.config.items():
 
-      if(name in ["Volume", "Channels"]):
+      if(name in ["Volume", "Units"]):
         # We are just loading the pruning information
         continue
 
@@ -703,8 +703,8 @@ class SnuddaPrune(object):
           pdb.set_trace()
           
         if(len(row) > 3):
-          # If distrib2 is specified, then distrib is within channel
-          # distribution and distrib2 is between channel distribution
+          # If distrib2 is specified, then distrib is within a unit
+          # distribution and distrib2 is between neurons in different units
           distrib2 = row[3]
         else:
           distrib2 = None
@@ -2818,18 +2818,18 @@ class SnuddaPrune(object):
       if(conID in self.connectivityDistributions):
 
         # We have the option to separate between connections within a
-        # functional channel or not. If conInfo[1] != None then first
-        # tuple is connection info within a channel, and second item
-        # is connection info between different channels
+        # functional unit or not. If conInfo[1] != None then first
+        # tuple is connection info within a unit, and second item
+        # is connection info between different units
         conInfo = self.connectivityDistributions[conID]
 
         #
         if(conInfo[1] is None \
-           or self.channelID[srcID] == self.channelID[destID]):
-          # All or within channel pruning parameters
+           or self.unitID[srcID] == self.unitID[destID]):
+          # All or within functional unit pruning parameters
           cInfo = conInfo[0]
         else:
-          # Between channel pruning parameters
+          # Between functional units pruning parameters
           cInfo = conInfo[1]
 
         # These will always exist thanks to completePruningInfo function

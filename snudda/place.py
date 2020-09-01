@@ -6,9 +6,8 @@
 # This open source software code was developed in part or in whole in
 # the Human Brain Project, funded from the European Union’s Horizon
 # 2020 Framework Programme for Research and Innovation under Specific
-# Grant Agreements No. 720270 and No. 785907 (Human Brain Project SGA1
-# and SGA2).
-#
+# Grant Agreements No. 720270 and No. 785907, No 945539
+# (Human Brain Project SGA1, SGA2, SGA3).
 
 import numpy as np
 import os
@@ -52,10 +51,10 @@ class SnuddaPlace(object):
     # This defines the neuron units/channels. The dictionary lists all the
     # members of each unit, the neuronChannel gives the individual neurons
     # channel membership
-    self.nChannels = 1
-    self.channelMethod = "random"
-    self.neuronChannels = dict([])
-    self.neuronChannel = None
+    self.nUnits = 1
+    self.unitPlacementMethod = "random"
+    self.neuronUnits = dict([])
+    self.neuronUnit = None
 
     # These are the dimensions of our space, dMin also needs a "padding"
     # region outside the space where fake neurons are placed. This is to
@@ -223,9 +222,9 @@ class SnuddaPlace(object):
 
       self.writeLog("Using dimensions from config file")
 
-    if("Channels" in config):
-      self.channelMethod = config["Channels"]["method"]
-      self.nChannels = config["Channels"]["nChannels"]
+    if("Units" in config):
+      self.unitPlacementMethod = config["Units"]["method"]
+      self.nUnits = config["Units"]["nUnits"]
 
     assert "Neurons" in config, \
       "No neurons defined. Is this config file old format?"
@@ -301,8 +300,8 @@ class SnuddaPlace(object):
     # We reorder neurons, sorting their IDs after position
     self.sortNeurons()
 
-    if(self.channelMethod is not None):
-      self.defineChannels(method=self.channelMethod)
+    if(self.unitPlacementMethod is not None):
+      self.defineUnits(method=self.unitPlacementMethod)
 
   ############################################################################
 
@@ -433,13 +432,13 @@ class SnuddaPlace(object):
       neuronModulationID[i] = n.modulationID
 
     # Store input information
-    neuronGroup.create_dataset("channelID", data=self.neuronChannel,dtype=int)
-    neuronGroup.create_dataset("nChannels", data=self.nChannels,dtype=int)
+    neuronGroup.create_dataset("unitID", data=self.neuronUnit,dtype=int)
+    neuronGroup.create_dataset("nUnits", data=self.nUnits,dtype=int)
 
-    if(self.channelMethod is not None):
-      neuronGroup.create_dataset("channelMethod", data=self.channelMethod)
+    if(self.unitPlacementMethod is not None):
+      neuronGroup.create_dataset("unitPlacementMethod", data=self.unitPlacementMethod)
     else:
-      neuronGroup.create_dataset("channelMethod", data="")
+      neuronGroup.create_dataset("unitPlacementMethod", data="")
 
     # Variable for axon density "r", "xyz" or "" (No axon density)
     axonDensityType = [n.axonDensity[0].encode("ascii","ignore") \
@@ -515,30 +514,30 @@ class SnuddaPlace(object):
 
   ############################################################################
 
-  def defineChannels(self,method="random",nChannels=None):
+  def defineUnits(self,method="random",nUnits=None):
 
-    if(nChannels is None):
-      nChannels = self.nChannels
+    if(nUnits is None):
+      nUnits = self.nUnits
 
     # Here you can define additional methods for specifying channels
     # for example, you can make distribution dependent on neuron type etc
     switcher = { "random" : self.randomLabeling }
 
-    switcher.get(method)(nChannels=nChannels)
+    switcher.get(method)(nUnits=nUnits)
 
   ############################################################################
 
-  def randomLabeling(self,nChannels=None):
+  def randomLabeling(self,nUnits=None):
 
-    if(nChannels is None):
-      nChannels = self.nChannels
+    if(nUnits is None):
+      nUnits = self.nUnits
 
-    self.neuronChannel = np.random.randint(nChannels,size=len(self.neurons))
+    self.neuronUnit = np.random.randint(nUnits,size=len(self.neurons))
 
-    self.neuronChannels = dict([])
+    self.neuronUnits = dict([])
 
-    for i in range(0,nChannels):
-      self.neuronChannels[i] = np.where(self.neuronChannel == i)[0]
+    for i in range(0,nUnits):
+      self.neuronUnits[i] = np.where(self.neuronUnit == i)[0]
 
   ############################################################################
 
@@ -584,7 +583,7 @@ if __name__ == "__main__":
     lbView = None
 
 
-  npn = SnuddaPlace(config_file="config/Network-striatum-mesh-v9-channels-10000-10.json",verbose=True,dView=dView,lbView=lbView)
+  npn = SnuddaPlace(config_file="config/Network-striatum-mesh-v9-units-10000-10.json",verbose=True,dView=dView,lbView=lbView)
 
 
   # Should we renumber neuron order, so that the neurons in the same hyper

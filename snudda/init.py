@@ -18,7 +18,7 @@ import json
 
 class SnuddaInit(object):
 
-  def __init__(self,structDef,configName,nChannels=1):
+  def __init__(self,structDef,configName,nUnits=1):
 
     print("CreateConfig")
 
@@ -36,17 +36,17 @@ class SnuddaInit(object):
 
     # Channels here refer to processing units, where the neurons within a channel
     # might have different connectivity than neurons belonging to different channels
-    self.networkData["Channels"] = collections.OrderedDict([])
-    self.networkData["Channels"]["nChannels"] = nChannels
-    self.networkData["Channels"]["method"] = "random"
+    self.networkData["Units"] = collections.OrderedDict([])
+    self.networkData["Units"]["nUnits"] = nUnits
+    self.networkData["Units"]["method"] = "random"
 
     self.networkData["Connectivity"] = dict([])
     self.networkData["Neurons"] = dict([])
 
     # self.neuronTargets = collections.OrderedDict([])
 
-    print("Using " + str(nChannels) + " functional channels")
-    self.nChannels = nChannels #5
+    print("Using " + str(nUnits) + " functional units")
+    self.nUnits = nUnits #5
 
     structFunc = { "Striatum" : self.defineStriatum,
                    "GPe" : self.defineGPe,
@@ -590,7 +590,7 @@ class SnuddaInit(object):
 
     self.regSize = 5
 
-    if(self.nChannels == 1):
+    if(self.nUnits == 1):
       self.channelMSNmodifier = 1
     else:
       print("!!! OBS, modifying probaiblities within and between channels")
@@ -789,9 +789,9 @@ class SnuddaInit(object):
 
 
     P11withinChannel = MSP11 * self.channelMSNmodifier
-    P11betweenChannel = MSP11 *(1 +(1-self.channelMSNmodifier) / self.nChannels)
+    P11betweenChannel = MSP11 *(1 +(1-self.channelMSNmodifier) / self.nUnits)
     P12withinChannel = MSP12 * self.channelMSNmodifier
-    P12betweenChannel = MSP12 *(1 +(1-self.channelMSNmodifier) / self.nChannels)
+    P12betweenChannel = MSP12 *(1 +(1-self.channelMSNmodifier) / self.nUnits)
 
     #pfdSPNdSPN = "synapses/v1/trace_table.txt-DD-model-parameters.json"
     #pfdSPNiSPN = "synapses/v1/trace_table.txt-DI-model-parameters.json"
@@ -902,9 +902,9 @@ class SnuddaInit(object):
 
     # Voxel method
     P21withinChannel = MSP21 * self.channelMSNmodifier
-    P21betweenChannel = MSP21 *(1 +(1-self.channelMSNmodifier) / self.nChannels)
+    P21betweenChannel = MSP21 *(1 +(1-self.channelMSNmodifier) / self.nUnits)
     P22withinChannel = MSP22 * self.channelMSNmodifier
-    P22betweenChannel = MSP22 *(1 +(1-self.channelMSNmodifier) / self.nChannels)
+    P22betweenChannel = MSP22 *(1 +(1-self.channelMSNmodifier) / self.nUnits)
 
     pfiSPNdSPN = self.dataPath +"/synapses/v2/PlanertFitting-ID-tmgaba-fit.json"
     pfiSPNiSPN = self.dataPath +"/synapses/v2/PlanertFitting-II-tmgaba-fit.json"
@@ -1356,4 +1356,4 @@ if __name__ == "__main__":
 
   fName = "config/basal-ganglia-config-" + str(nTotals) + ".json"
 
-  SnuddaInit(structDef=structDef,configName=fName,nChannels=1)
+  SnuddaInit(structDef=structDef,configName=fName,nUnits=1)

@@ -548,11 +548,11 @@ class SnuddaDetect(object):
       
 
     # Store input information
-    neuronGroup.create_dataset("channelID", data=self.neuronChannel,
+    neuronGroup.create_dataset("unitID", data=self.neuronUnit,
                                compression=self.h5compression,dtype=int)
     
-    neuronGroup.create_dataset("nChannels", data=self.nChannels)
-    neuronGroup.create_dataset("channelMethod", data=self.channelMethod)
+    neuronGroup.create_dataset("nUnits", data=self.nUnits)
+    neuronGroup.create_dataset("unitPlacementMethod", data=self.unitPlacementMethod)
 
     # Variable for axon density "r", "xyz" or "" (No axon density)
     axonDensityType = [n["axonDensityType"].encode("ascii","ignore") \
@@ -1698,14 +1698,14 @@ class SnuddaDetect(object):
          "Neuron type " + neuron["name"] + " not in prototypeNeurons: " \
           + str(self.prototypeNeurons)
 
-    # Also load the channel data
-    self.nChannels = posInfo["nChannels"]
-    self.neuronChannel = posInfo["neuronChannel"]
-    self.channelMethod = posInfo["channelMethod"]
+    # Also load the neuron unit data
+    self.nUnits = posInfo["nUnits"]
+    self.neuronUnit = posInfo["neuronUnit"]
+    self.unitPlacementMethod = posInfo["unitPlacementMethod"]
       
-    self.neuronChannels = dict([])
-    for i in range(0,self.nChannels):
-      self.neuronChannels[i] = np.where(self.neuronChannel == i)[0]
+    self.neuronUnits = dict([])
+    for i in range(0,self.nUnits):
+      self.neuronUnits[i] = np.where(self.neuronUnit == i)[0]
 
     self.writeLog("Position file read.")
     del posInfo
