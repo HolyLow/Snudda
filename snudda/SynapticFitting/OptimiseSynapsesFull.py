@@ -11,6 +11,24 @@ import json
 import copy
 import time
 
+
+# TODO 2020-10-09
+#
+# We are no longer reading data from Yvonne's HDF5 directly, instead we are
+# reading data from a JSON file, that Ilaria created from Igor exports.
+#
+# Consequences and TODO:
+# - We no longer need CellID to identify which cell we are optmising,
+#   each JSON file only contains one dataset (and it is an averages dataset)
+# - Holding voltage is no longer extractable from data, we need to set it
+# - Create a JSON optmisation parameter file which contains the holding voltage
+#   to be used, as well as the modelbounds (currently in getModelBounds)
+# - The JSON data is now loaded into self.data, go through all functions
+#   remove references to CellID, and extract the data directly from the
+#   self.data variable.
+#
+#
+
 # TODO 2020-07-15
 #
 # Make it so that the code can run in serial mode also, to simplify debugging
@@ -110,6 +128,20 @@ class OptimiseSynapsesFull(object):
     self.figResolution = 300
 
     self.fileName = fileName
+    
+    with open(fileName,"r") as f:
+      self.data = json.load(f)
+      
+      self.volt = self.data["data"]["mean_norm_trace"]      
+      self.sampleFreq = self.data["metadata"]["freq"]
+      
+      dt = 1/self.sampleFreq*1e3 # ms... ouch!
+      self.time = 0 + dt * np.range(0,len(self.volt))
+
+      self.stimTime = self.data["metadata"]["stim_time"] # ms
+      
+      self.cellType = self.data["metadata"]["cell_type"]
+      
     self.cacheFileName = str(self.fileName) + "-parameters-full.json"
     self.loadCache = loadCache
     self.synapseType = synapseType
@@ -221,52 +253,19 @@ class OptimiseSynapsesFull(object):
       
   ############################################################################
   
-  def addParameterCache(self,cellID,name,value):
+  def addParameterCache(self,name,value):
 
-    if(cellID not in self.parameterCache):
-      self.parameterCache[int(cellID)] = dict([])
-    
-    self.parameterCache[int(cellID)][name] = value
+    self.parameterCache[name] = value
 
   ############################################################################
 
-  def getParameterCache(self,cellID,name):
+  def getParameterCache(self,name):
 
-    if(cellID in self.parameterCache and name in self.parameterCache[cellID]):
-      return self.parameterCache[cellID][name]
+    if(name in self.parameterCache]):
+      return self.parameterCache[name]
     else:
       return None
     
-  ############################################################################
-
-  def getData(self,dataType,cellID=None):
-
-    if(cellID is None):
-      data = self.hFile[dataType][()].copy()
-    else:
-      data = self.hFile[dataType][:,cellID].copy()
- 
-      
-    # data: 0 = no recording, 5 = recording but no response
-      
-    if("IGORWaveScaling" in self.hFile[dataType].attrs):
-      tStep = self.hFile[dataType].attrs["IGORWaveScaling"][1,0]
-
-      # 0 = no recording
-      # 5 = has recording, no respons
-      
-      assert 0 < tStep and tStep < 1e-2, " Double check tStep = " + str(tStep)
-      # Which variable contains the start time? Do not know, so assume it is 0
-    
-      nPoints = data.shape[0]
-      #t = 0 + tStep * np.arange(0,nPoints)
-      t = 0.3 + tStep * np.arange(0,nPoints)  
-
-      return (data,t)
-
-    else:
-
-      return data
 
   ############################################################################
 
@@ -351,9 +350,7 @@ class OptimiseSynapsesFull(object):
     else:
       matplotlib.rcParams.update({'font.size': 5})
       
-    (data,t) = self.getData(dataType,cellID)
-
-    if(data is None):
+    if(self.volt is None):
       self.writeLog(dataType + " " + str(cellID) + ": Nothing to plot")
       return
 
@@ -389,14 +386,14 @@ class OptimiseSynapsesFull(object):
         
     plt.figure()
 
-    plt.plot(t[tIdx]*1e3,data[tIdx]*1e3,'r-')
+    plt.plot(self.time[tIdx]*1e3,self.data[tIdx]*1e3,'r-')
     if(vPlot is not None):
       t2Idx = np.where(skipTime <= tPlot)[0]
       plt.plot(tPlot[t2Idx]*1e3,vPlot[t2Idx]*1e3,'k-')
     # plt.title(dataType + " " + str(cellID))
-    cellType = self.getCellType(cellID)
+
     if(not prettyPlot):
-      titleStr = cellType + " " + str(cellID)
+      titleStr = self.cellType
       
       if("nmda_ratio" in params):
         titleStr += "\nU=%.3g, tauR=%.3g, tauF=%.3g, tau=%.3g,\ncond=%.3g, nmda_ratio=%.3g" \
@@ -481,26 +478,25 @@ class OptimiseSynapsesFull(object):
       with open(self.neuronSetFile,'r') as f:
         self.cellProperties = json.load(f)
 
-    cellTypeString = self.getCellType(cellID)
-
+    cellTypeString = self.cellType.upper()
     baselineDepol = self.getExpBaseline(dataType,cellID)
     
     # Need to extract cellType from the cellType string
-    if("MS" in cellTypeString.upper()):
-      if("D1" in cellTypeString.upper()):
+    if("MS" in cellTypeString):
+      if("D1" in cellTypeString):
         cellType = 'dSPN'
-      elif("D2" in cellTypeString.upper()):
+      elif("D2" in cellTypeString):
         cellType = 'iSPN'
       else:
         cellType = 'SPN'
 
-    elif("FS" in cellTypeString.upper()):
+    elif("FS" in cellTypeString):
       cellType = 'FSN'
 
-    elif('LTS' in cellTypeString.upper()):
+    elif('LTS' in cellTypeString):
       cellType = 'LTS'
 
-    elif('CHAT' in cellTypeString.upper()):
+    elif('CHAT' in cellTypeString):
       cellType = 'ChIN'
 
     else:
@@ -684,30 +680,6 @@ class OptimiseSynapsesFull(object):
    
   
   ############################################################################
-    
-  def getStimTime(self,dataType,cellID,
-                  firstSpike=0.4,delayToLast=None):
- 
-    try:
-      freq = float(re.findall(r'H\d+',dataType)[0][1:])
-    except:
-      self.writeLog("Unable to extract frequency from " + str(dataType))
-      import pdb
-      pdb.set_trace()
-
-    if(delayToLast is None):
-      if(freq == 20.0):
-        delayToLast = 0.55
-      else:
-        delayToLast = 0.5
-      
-    pTime = 0.4 + np.arange(0,8)*1.0/freq
-    pTime = np.append(pTime,pTime[-1] + delayToLast)
-
-
-    return pTime
-    
-  ############################################################################
 
   # Find peaks within pStart[i] and pStart[i]+pWindow[i]
   # The value is not the amplitude of the peak, just the voltage at the peak
@@ -722,9 +694,8 @@ class OptimiseSynapsesFull(object):
       if(peakData is not None):
         return peakData
     
-      (volt,time) = self.getData(dataType,cellID) 
     else:
-      assert volt is not None and time is not None, \
+      assert self.volt is not None and self.time is not None, \
         "Either use cellID to get time and volt of experimental data, or send time and volt explicitly"
       
     peakIdx = []
@@ -738,19 +709,19 @@ class OptimiseSynapsesFull(object):
       tIdx = np.where(np.logical_and(tStart <= time,time <= tEnd))[0]
 
       if(self.synapseType == "glut"):
-        pIdx = tIdx[np.argmax(volt[tIdx])]
+        pIdx = tIdx[np.argmax(self.volt[tIdx])]
       elif(self.synapseType == "gaba"):
         # We assume that neuron is more depolarised than -65, ie gaba is
         # also depolarising
-        pIdx = tIdx[np.argmax(volt[tIdx])]
+        pIdx = tIdx[np.argmax(self.volt[tIdx])]
       else:
-        self.writeLog("Unknown synapse type : " +str(self.synapseType))
+        self.writeLog("Unknown synapse type : " + str(self.synapseType))
         import pdb
         pdb.set_trace()
         
       peakIdx.append(int(pIdx))
-      peakTime.append(time[pIdx])
-      peakVolt.append(volt[pIdx])
+      peakTime.append(self.time[pIdx])
+      peakVolt.append(self.volt[pIdx])
       
     # Save to cache -- obs peakVolt is NOT amplitude of peak, just volt
 
@@ -890,7 +861,7 @@ class OptimiseSynapsesFull(object):
                  nSynapsesOverride=None,
                  synapsePositionOverride=None):
     
-    tStim = self.getStimTime(dataType,cellID)  
+    tStim = self.stimTime
 
     # Read the info needed to setup the neuron hosting the synapses
     cProp = self.getCellProperties(dataType,cellID)
