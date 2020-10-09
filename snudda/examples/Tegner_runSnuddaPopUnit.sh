@@ -8,7 +8,7 @@ JOBDIR=$SNUDDA_DIR/../networks/TegnerRun.${SLURM_JOBID}
 #JOBDIR=$HOME/networks/TegnerRun.${SLURM_JOBID}
 
 #SIMSIZE=120000
-SIMSIZE=10062
+SIMSIZE=10000
 #SIMSIZE=200000
 #SIMSIZE=1760000
 
@@ -58,7 +58,7 @@ else
     # need to figure out how to get it ti find snudda so we can call it directly
     # instead of calling core.py
     echo ">>> Init: "`date`
-    snudda init ${JOBDIR} --size ${SIMSIZE}
+    snudda init ${JOBDIR} --size ${SIMSIZE} --nPopulationUnits 2 --overwrite --PopulationUnitRadius 100 --PopulationUnitCentres "[(0.003527752534434234, 0.004630560657029582,0.005071984459773511),(0.0035677525344342343, 0.0046705606570295825, 0.005111984459773511)]"
 
     if [ $? != 0 ]; then
 	echo "Something went wrong during init, aborting!"

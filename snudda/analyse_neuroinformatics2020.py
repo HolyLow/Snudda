@@ -143,6 +143,8 @@ if __name__ == "__main__":
 
   yMaxH = None #0.5
 
+  nas.plotIncomingConnections(neuronType="dSPN",preType="iSPN",nBins=20)
+
   nas.plotConnectionProbability("iSPN","dSPN", \
                                 dist3D=dist3D, \
                                 expMaxDist=[50e-6,100e-6],\
@@ -153,10 +155,7 @@ if __name__ == "__main__":
 
   nas.plotNumSynapsesPerPair("iSPN","dSPN")
   
-  nas.plotIncomingConnections(neuronType="dSPN",preType="iSPN")
-  
-  nas.plotSynapseCumDist()
-        
-  nas.plotIncomingConnections(neuronType="iSPN",preType="dSPN")
+  # nas.plotSynapseCumDist()
+          
 
   
