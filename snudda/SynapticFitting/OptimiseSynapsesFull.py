@@ -1156,48 +1156,7 @@ class OptimiseSynapsesFull(object):
 
     try:
       
-      if(optMethod == "stupid"):
-
-        assert False, "Use the swarm method!"
-        # U, tauR, tauF, tauRatio, cond (obs, tau = tauRatio * tauR)
-        modelBounds = ([1e-3,1e-4,1e-4,0, 1e-5],[1.0,2,2,0.9999999,1e-1])
-
-        # This one gives nmda_ratio as parameter also
-        #modelBounds = self.getModelBounds(cellID)
-        
-        # Call best random, to find a good set of starting points
-        p0 = self.bestRandom(synapseModel=synapseModel,
-                             cellID=cellID,
-                             tPeak = stimTime,
-                             hPeak = peakHeight,
-                             modelBounds=modelBounds)
-
-
-#        fitParams,pcov = scipy.optimize.curve_fit(self.neuronSynapseHelper,
-#                                                  stimTime,peakHeight,
-#                                                  sigma=sigma,
-#                                                  absolute_sigma=False,
-#                                                  p0=p0,
-#                                                  bounds=modelBounds)
-        fitParams,pcov = scipy.optimize.minimize(self.neuronSynapseHelper,
-                                                 stimTime,
-                                                 x0=p0,
-                                                 bounds=modelBounds)
-
-        # tau < tauR, so we use tauRatio for optimisation
-        fitParams[3] *= fitParams[1] # tau = tauR * tauRatio
-
-        modelHeights = self.neuronSynapseHelper(stimTime,
-                                                U=fitParams[0],
-                                                tauR=fitParams[1],
-                                                tauF=fitParams[2],
-                                                tau=fitParams[3],
-                                                cond=fitParams[4])
-
-
-        self.writeLog("Parameters: U = %.3g, tauR = %.3g, tauF = %.3g, tau = %.3g, cond = %3.g" % tuple(fitParams))
-
-      elif(optMethod=="sobol"):
+      if(optMethod=="sobol"):
 
         if(self.debugParsFlag):
           self.debugPars = []
