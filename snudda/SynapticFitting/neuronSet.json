@@ -7,7 +7,8 @@
 	"neuronParameterID" : 0,
 	"neuronModulationID": 0,
 	"synapseDensity" : "0.05/(1+np.exp(-(d-150e-6)/5e-6))",
-	"nSynapses" : 20
+	"nSynapses" : 20,
+	"baselineVoltage" : -80e-3
     },
     
     "iSPN" : {
@@ -18,7 +19,8 @@
 	"neuronParameterID" : 0,
 	"neuronModulationID": 0,
 	"synapseDensity" : "0.05/(1+np.exp(-(d-150e-6)/5e-6))",
-	"nSynapses" : 20
+	"nSynapses" : 20,
+	"baselineVoltage" : -80e-3	
     },
 
     "SPN" : {
@@ -29,7 +31,8 @@
 	"neuronParameterID" : 0,
 	"neuronModulationID": 0,
 	"synapseDensity" : "0.05/(1+np.exp(-(d-150e-6)/5e-6))",
-	"nSynapses" : 20
+	"nSynapses" : 20,
+	"baselineVoltage" : -80e-3	
     },
 
     "FSN" : {
@@ -40,7 +43,8 @@
 	"neuronParameterID" : 0,
 	"neuronModulationID": 0,
 	"synapseDensity" : "0.05/(1+np.exp(-(d-150e-6)/5e-6))",
-	"nSynapses" : 20
+	"nSynapses" : 20,
+	"baselineVoltage" : -80e-3	
     },
 
     "ChIN" : {
@@ -51,7 +55,8 @@
 	"neuronParameterID" : 0,
 	"neuronModulationID": 0,
 	"synapseDensity" : "0.05/(1+np.exp(-(d-150e-6)/5e-6))",
-	"nSynapses" : 20
+	"nSynapses" : 20,
+	"baselineVoltage" : -80e-3	
     },
 
     "LTS" : {
@@ -62,7 +67,8 @@
 	"neuronParameterID" : 0,
 	"neuronModulationID": 0,
 	"synapseDensity" : "0.05/(1+np.exp(-(d-150e-6)/5e-6))",
-	"nSynapses" : 20
+	"nSynapses" : 20,
+	"baselineVoltage" : -80e-3	
     }
 
 }
