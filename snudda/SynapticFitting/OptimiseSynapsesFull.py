@@ -11,7 +11,14 @@ import json
 import copy
 import time
 
-
+# TODO 2020-10-19
+#
+# We need to make sure params contains the nmda_ratio and other parameters
+# that are important for mod file (but not optimised for at this stage)
+# Please fix.
+#
+#
+#
 # TODO 2020-10-09
 #
 # We are no longer reading data from Yvonne's HDF5 directly, instead we are
@@ -345,10 +352,9 @@ class OptimiseSynapsesFull(object):
     vPlot = None
 
     if(bestParams is not None):
-      U, tauR, tauF, tauRatio, cond, nmdaRatio = bestParams
+      U, tauR, tauF, tauRatio, cond = bestParams
 
-      params = { "nmda_ratio" : nmdaRatio,
-                 "U" : U,
+      params = { "U" : U,
                  "tauR" : tauR,
                  "tauF" : tauF,
                  "cond" : cond,
@@ -375,16 +381,7 @@ class OptimiseSynapsesFull(object):
     if(not prettyPlot):
       titleStr = self.cellType
       
-      if("nmda_ratio" in params):
-        titleStr += "\nU=%.3g, tauR=%.3g, tauF=%.3g, tau=%.3g,\ncond=%.3g, nmda_ratio=%.3g" \
-          % (params["U"],
-             params["tauR"],
-             params["tauF"],
-             params["tau"],
-             params["cond"],
-             params["nmda_ratio"])
-      else:
-        titleStr += "\nU=%.3g, tauR=%.3g, tauF=%.3g, tau=%.3g,\ncond=%.3g" \
+      titleStr += "\nU=%.3g, tauR=%.3g, tauF=%.3g, tau=%.3g,\ncond=%.3g" \
           % (params["U"],
              params["tauR"],
              params["tauF"],
@@ -923,18 +920,8 @@ class OptimiseSynapsesFull(object):
                                pars,
                                tSpikes):
 
-    if(self.synapseType == "glut"):
-      U,tauR,tauF,tauRatio,cond,nmdaRatio = pars
-      tau = tauR*tauRatio
-      params = { "nmda_ratio" : nmdaRatio }
-    elif(self.synapseType == "gaba"):
-      U,tauR,tauF,tauRatio,cond = pars
-      tau = tauR*tauRatio
-      params = {}
-    else:
-      self.writeLog("Unknown synapse type: " + str(self.synapseType))
-      import pdb
-      pdb.set_trace()
+    U,tauR,tauF,tauRatio,cond = pars
+    tau = tauR*tauRatio
     
     peakHeights,tSim,vSim = self.runModel(tSpikes,U,
                                           tauR,tauF,cond,tau,
@@ -967,13 +954,14 @@ class OptimiseSynapsesFull(object):
    # !!! OBS tauRatio is inparameter
    
   def neuronSynapseHelperGlut(self,tSpike, 
-                              U, tauR, tauF, tauRatio, cond, nmdaRatio, 
+                              U, tauR, tauF, tauRatio, cond,
                               smoothExpTrace8, smoothExpTrace9, expPeakHeight,
                               returnType="peaks"):
 
     if(self.debugParsFlag):
-      self.debugPars.append([U, tauR, tauF, tauRatio, cond, nmdaRatio])
-    
+      self.debugPars.append([U, tauR, tauF, tauRatio, cond])
+
+    !!! WE NEED TO HAVE THE CORRECT PARAMS HERE !!!
     params = { "nmda_ratio" : nmdaRatio }
     tau = tauR * tauRatio
     
@@ -1129,7 +1117,7 @@ class OptimiseSynapsesFull(object):
     
 
     # zip(*xxx) unzips xxx -- cool.
-    USobol,tauRSobol,tauFSobol,tauRatioSobol,condSobol,nmdaRatioSobol \
+    USobol,tauRSobol,tauFSobol,tauRatioSobol,condSobol \
       = zip(*parameterSets)
     
     # tauSobol = np.multiply(tauRatioSobol,tauRSobol)
@@ -1152,7 +1140,6 @@ class OptimiseSynapsesFull(object):
                                                 tauF=minPars[2],
                                                 tauRatio=minPars[3]/minPars[1],
                                                 cond=minPars[4],
-                                                nmdaRatio=minPars[5],
                                                 smoothExpTrace8=smoothExpTrace8,
                                                 smoothExpTrace9=smoothExpTrace9,
                                                 expPeakHeight=hPeak,
@@ -1160,9 +1147,9 @@ class OptimiseSynapsesFull(object):
 
     idx = 0
         
-    for U,tauR,tauF,tauRatio,cond,nmdaRatio \
+    for U,tauR,tauF,tauRatio,cond \
         in zip(USobol, tauRSobol, tauFSobol, tauRatioSobol, \
-               condSobol, nmdaRatioSobol):
+               condSobol):
 
       idx += 1
       if(idx % 50 == 0):
@@ -1170,7 +1157,7 @@ class OptimiseSynapsesFull(object):
         self.writeLog(str(minPar))
    
       error = self.neuronSynapseHelperGlut(tStim,U,tauR,tauF,tauRatio,
-                                           cond,nmdaRatio,
+                                           cond,
                                            smoothExpTrace8=smoothExpTrace8,
                                            smoothExpTrace9=smoothExpTrace9,
                                            expPeakHeight=hPeak,
@@ -1178,7 +1165,7 @@ class OptimiseSynapsesFull(object):
       try:      
         if(error < minError):
           minError = error
-          minPar = np.array([U,tauR,tauF,tauRatio,cond,nmdaRatio])
+          minPar = np.array([U,tauR,tauF,tauRatio,cond])
 
           # TODO, write intermediate results to file, in case of a crash...
           
@@ -1294,6 +1281,7 @@ class OptimiseSynapsesFull(object):
     if(self.role == "master"):
 
       # 1. Setup workers
+      !!! This needs to be the parameters for nmda_ampa_ratio !!!
       params = dict([])
 
       # 2. Setup one cell to optimise, randomise synapse positions
@@ -1377,7 +1365,8 @@ class OptimiseSynapsesFull(object):
                                 = (synapseModel.synapseSectionID,
                                    synapseModel.synapseSectionX))
 
-        parSet,parError = self.sobolScan(tStim = self.stimTime, \
+        parSet,parError = self.sobolScan(synapseModel = synapseModel,
+                                         tStim = self.stimTime, \
                                          hPeak = peakHeight, \
                                          modelBounds=modelBounds, \
                                          smoothExpTrace8=ly.smoothExpVolt8, \
@@ -1452,7 +1441,6 @@ class OptimiseSynapsesFull(object):
                                         tauF=x[2],
                                         tauRatio=x[3],
                                         cond=x[4],
-                                        nmdaRatio=x[5],
                                         smoothExpTrace8=self.smoothExpVolt8,
                                         smoothExpTrace9=self.smoothExpVolt9,
                                         expPeakHeight=peakHeight,
@@ -1678,7 +1666,6 @@ class OptimiseSynapsesFull(object):
       tauF      = np.zeros((nPoints,nIter))
       tauRatio  = np.zeros((nPoints,nIter))
       cond      = np.zeros((nPoints,nIter))
-      nmdaRatio = np.zeros((nPoints,nIter))
 
       for ctr,par in enumerate(self.debugPars):
         Uall[:,ctr]      = par[:,0]
@@ -1686,7 +1673,6 @@ class OptimiseSynapsesFull(object):
         tauF[:,ctr]      = par[:,2]
         tauRatio[:,ctr]  = par[:,3]
         cond[:,ctr]      = par[:,4]
-        nmdaRatio[:,ctr] = par[:,5]
       
       
       plt.figure()
@@ -1700,17 +1686,8 @@ class OptimiseSynapsesFull(object):
       plt.ylabel("tauF")
 
       plt.figure()
-      plt.plot(tauRatio,nmdaRatio)
-      plt.xlabel("tauRatio")
-      plt.ylabel("nmdaRatio")
-
-      plt.figure()
       plt.plot(Uall)
       plt.xlabel("Uall")
-
-      plt.figure()
-      plt.plot(nmdaRatio)
-      plt.xlabel("nmdaRatio")
       
       plt.ion()
       plt.show()
