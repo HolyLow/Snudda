@@ -98,7 +98,7 @@ class OptimiseSynapsesFull(object):
   def __init__(self, fileName, synapseType="glut",loadCache=True,
                role="master",dView=None,verbose=True,logFileName=None,
                optMethod="sobol",prettyPlot=False,
-               model_bounds="model_bounds.json"
+               model_bounds="model_bounds.json",
                neuronSetFile="neuronSet.json"):
 
     # Parallel execution role, "master" or "servant"
@@ -135,13 +135,13 @@ class OptimiseSynapsesFull(object):
     with open(fileName,"r") as f:
       self.data = json.load(f)
       
-      self.volt = self.data["data"]["mean_norm_trace"]      
-      self.sampleFreq = self.data["metadata"]["freq"]
+      self.volt = np.array(self.data["data"]["mean_norm_trace"])
+      self.sampleFreq = self.data["metadata"]["sample_freq"]
       
-      dt = 1/self.sampleFreq*1e3 # ms... ouch!
-      self.time = 0 + dt * np.range(0,len(self.volt))
+      dt = 1/self.sampleFreq
+      self.time = 0 + dt * np.arange(0,len(self.volt))
 
-      self.stimTime = self.data["metadata"]["stim_time"] # ms
+      self.stimTime = np.array(self.data["metadata"]["stim_time"]) * 1e-3 # ms
       
       self.cellType = self.data["metadata"]["cell_type"]
       
@@ -239,7 +239,7 @@ class OptimiseSynapsesFull(object):
 
   def getParameterCache(self,name):
 
-    if(name in self.parameterCache]):
+    if name in self.parameterCache:
       return self.parameterCache[name]
     else:
       return None
@@ -456,7 +456,7 @@ class OptimiseSynapsesFull(object):
       with open(self.neuronSetFile,'r') as f:
         self.cellProperties = json.load(f)
 
-    cellType = self.data["meta_data"]["cell_type"]
+    cellType = self.data["metadata"]["cell_type"]
 
     return self.cellProperties[cellType].copy()
 
@@ -595,8 +595,8 @@ class OptimiseSynapsesFull(object):
   
   def getPeakIdx(self):
 
-    pTime = self.data["meta_data"]["stim_time"]
-    freq = self.data["meta_data"]["freq"]
+    pTime = np.array(self.data["metadata"]["stim_time"])*1e-3
+    freq = self.data["metadata"]["freq"]
 
     assert np.abs(1.0-freq/(pTime[1]-pTime[0])) < 0.01, "frequency mismatch"
     
@@ -615,6 +615,7 @@ class OptimiseSynapsesFull(object):
   def getPeakIdx2(self,stimTime,time,volt):
 
     freq = 1.0/(stimTime[1]-stimTime[0])
+
     pWindow = 1.0/(2*freq)*np.ones(stimTime.shape)
     pWindow[-1] *= 5
     
@@ -644,7 +645,8 @@ class OptimiseSynapsesFull(object):
       tEnd = pt + pw
 
       tIdx = np.where(np.logical_and(tStart <= time,time <= tEnd))[0]
-
+      assert len(tIdx) > 0, f"No time points within {tStart} and {tEnd}" 
+      
       if(self.synapseType == "glut"):
         pIdx = tIdx[np.argmax(volt[tIdx])]
       elif(self.synapseType == "gaba"):
@@ -1098,255 +1100,21 @@ class OptimiseSynapsesFull(object):
   
   def getModelBounds(self):
     
-    cellType = self.data["meta_data"]["cell_type"]
+    cellType = self.data["metadata"]["cell_type"]
 
     mb = self.model_bounds[cellType]
 
     paramList = ["U", "tauR", "tauF", "tauRatio", "cond"]
-    lower = [mb[x][0] for x in paramList]
-    upper = [mb[x][1] for x in paramList]
+    lowerBound = [mb[x][0] for x in paramList]
+    upperBound = [mb[x][1] for x in paramList]
 
-    return (lower,upper)
+    return (lowerBound,upperBound)
     
   
   ############################################################################
 
-  # !!! TODO: Should this be removed?
-  def fitTrace(self, optMethod=None):
-
-    assert False, "Obsolete!!"
-    
-    if(optMethod is None):
-      optMethod = self.optMethod
-    
-    (volt,time) = self.getData(dataType,cellID)
-
-    if (False):
-        plt.plot(time, volt)
-        plt.show()
-        import pdb
-        pdb.set_trace()
-
-
-    # This should NOT be empty, it should have AMPA/NMDA specific parameters
-    # that we do not optimise for...
-    params = dict([])
-    
-    synapseModel = self.setupModel(dataType=dataType,
-                                   cellID=cellID,
-                                   params=params)
-
-
-
-
-    peakIdx = self.getPeakIdx(dataType,cellID)
-    tSpikes = time[peakIdx]
-    
-    sigma = np.ones(len(peakIdx))
-    sigma[-1] = 1./3
-
-    stimTime =  self.getStimTime(dataType=dataType,
-                                 cellID=cellID)
-    
-    peakHeight,decayFits,vBase = self.findTraceHeights(time,volt,peakIdx)
-
-    # U, tauR, tauF, tauRatio, cond (obs, tau = tauRatio * tauR)
-    modelBounds = ([1e-3,1e-4,1e-4,0, 1e-5],[1.0,2,2,0.9999999,1e-1])
-    # !!! bestRandom should also see these bounds...
-
-    try:
-      
-      if(optMethod=="sobol"):
-
-        if(self.debugParsFlag):
-          self.debugPars = []
-        
-        modelBounds = self.getModelBounds(cellID)
-
-        self.decayStartFit8 = 0.45
-        self.decayEndFit8   = 0.8
-
-        self.decayStartFit9 = 1.0
-        self.decayEndFit9   = 1.3
-
-        smoothExpVolt8,smoothExpTime8 \
-          = self.smoothingTrace(volt,self.nSmoothing,
-                                time=time,
-                                startTime = self.decayStartFit8,
-                                endTime = self.decayEndFit8)
-        
-        smoothExpVolt9,smoothExpTime9 \
-          = self.smoothingTrace(volt,self.nSmoothing,
-                                time=time,
-                                startTime = self.decayStartFit9,
-                                endTime = self.decayEndFit9)
-
-        
-        startPar = self.sobolScan(synapseModel=synapseModel,
-                                  cellID=cellID,
-                                  tPeak = stimTime,
-                                  hPeak = peakHeight,
-                                  modelBounds=modelBounds,
-                                  smoothExpTrace8=smoothExpVolt8,
-                                  smoothExpTrace9=smoothExpVolt9)
-
-        func = lambda x : \
-          self.neuronSynapseHelperGlut(tSpike=stimTime,
-                                       U=x[0],
-                                       tauR=x[1],
-                                       tauF=x[2],
-                                       tauRatio=x[3],
-                                       cond=x[4],
-                                       nmdaRatio=x[5],
-                                       smoothExpTrace8=smoothExpVolt8,
-                                       smoothExpTrace9=smoothExpVolt9,
-                                       expPeakHeight=peakHeight,
-                                       returnType="error")
-
-        mBounds = [x for x in zip(modelBounds[0],modelBounds[1])]
-        res = scipy.optimize.minimize(func,
-                                      x0=startPar,
-                                      bounds=mBounds)
-
-        fitParams = res.x
-        
-#        fitParams,pcov = scipy.optimize.curve_fit(func,
-#                                                  stimTime,peakHeight,
-#                                                  sigma=sigma,
-#                                                  absolute_sigma=False,
-#                                                  p0=startPar,
-#                                                  bounds=modelBounds)
-
-        modelError,modelHeight,tSim,vSim = \
-          self.neuronSynapseHelperGlut(stimTime,
-                                       U=fitParams[0],
-                                       tauR=fitParams[1],
-                                       tauF=fitParams[2],
-                                       tauRatio=fitParams[3],
-                                       cond=fitParams[4],
-                                       nmdaRatio=fitParams[5],
-                                       smoothExpTrace8=smoothExpVolt8,
-                                       smoothExpTrace9=smoothExpVolt9,
-                                       expPeakHeight=peakHeight,
-                                       returnType="full")
-          
-
-        # tau < tauR, so we use tauRatio for optimisation
-        fitParams[3] *= fitParams[1] # tau = tauR * tauRatio
-
-        self.writeLog("Parameters: U = %.3g, tauR = %.3g, tauF = %.3g, tau = %.3g, cond = %.3g, nmdaRatio = %.3g" % tuple(fitParams))
-        self.writeLog("Model error: %g" % modelError)
-   
-      elif(optMethod=="swarm"):
-
-        if(self.debugParsFlag):
-          self.debugPars = []
-
-        # Increase upper cond limit to 1? -- M1LH 11 might need it
-          
-        # U, tauR, tauF, tauRatio, cond (obs, tau = tauRatio * tauR), nmda_ratio
-        #modelBounds = ([1e-3,1e-4,1e-4,0, 1e-5,0.3],
-        #               [1.0,2,2,0.9999999,1e-1,4])
-
-        modelBounds = self.getModelBounds(cellID)
-
-        self.decayStartFit = 2.0
-        self.decayEndFit = 2.2
-         
-        smoothVolt,smoothTime = self.smoothingTrace(volt,self.nSmoothing,
-                                                 time=time,
-                                                 startTime = self.decayStartFit,
-                                                 endTime = self.decayEndFit)
-
-        import pyswarms as ps
-        from pyswarms.utils.functions import single_obj as fx
-
-        options = {"c1":0.5, "c2":0.3, "w":0.9} # default
-        
-        # Increased from 200 to 300, to 400
-        if(self.synapseType == "glut"):
-          nPart = 400
-        else:
-          nPart = 50
-          
-        optimizer = ps.single.GlobalBestPSO(n_particles=nPart,
-                                            dimensions=len(modelBounds[0]),
-                                            options=options,
-                                            bounds=modelBounds)
-
-        # Set iter to 50, lowered to 10
-        cost, fitParams = optimizer.optimize(self.neuronSynapseSwarmHelper,
-                                             iters=10,
-                                             tSpikes = stimTime,
-                                             peakHeight = peakHeight,
-                                             smoothExpTrace=smoothVolt)
-
-        modelHeight,tSim,vSim = \
-          self._neuronSynapseSwarmHelper(fitParams,stimTime)
-        
-        # tau < tauR, so we use tauRatio for optimisation
-        fitParams[3] *= fitParams[1] # tau = tauR * tauRatio
-
-        if(len(fitParams) == 6):
-          self.writeLog("Parameters: U = %.3g, tauR = %.3g, tauF = %.3g, tau = %.3g, cond = %3.g, nmda_ratio = %.3g" % tuple(fitParams))
-        elif(len(fitParams) == 5):
-          self.writeLog("Parameters: U = %.3g, tauR = %.3g, tauF = %.3g, tau = %.3g, cond = %3.g" % tuple(fitParams))
-        else:
-          self.writeLog("Unknown parameter format: " + str(fitParams))
-          import pdb
-          pdb.set_trace()
-      else:
-        self.writeLog("NO METHOD SELECTED!!!")
-        exit(-1)
-        
-      self.writeLog("peakHeight = " + str(peakHeight))
-      self.writeLog("modelHeight = " + str(modelHeight))
-            
-    except:
-      import traceback
-      tstr = traceback.format_exc()
-      self.writeLog(tstr)
-      import pdb
-      pdb.set_trace()
-
-
-    if(len(fitParams) == 6):
-      self.addParameterCache(cellID,"synapse", \
-                             { "U" : fitParams[0],
-                               "tauR" : fitParams[1],
-                               "tauF" : fitParams[2],
-                               "tau"  : fitParams[3],
-                               "cond" : fitParams[4],
-                               "nmda_ratio" : fitParams[5] })
-    elif(len(fitParams) == 5):
-      self.addParameterCache(cellID,"synapse", \
-                             { "U" : fitParams[0],
-                               "tauR" : fitParams[1],
-                               "tauF" : fitParams[2],
-                               "tau"  : fitParams[3],
-                               "cond" : fitParams[4] })
-    else:
-      print("Unknown fitParams format, unable to save paramters = " \
-            +str(fitParams))
-      import pdb
-      pdb.set_trace()
-      
-
-    self.addParameterCache(cellID,"meta", \
-                           { "type" : self.getCellType(cellID),
-                             "experiment" : dataType,
-                             "datafile" : self.fileName })
-
-    if(self.debugParsFlag):
-      self.plotDebugPars()
-    
-    # Deallocate Neuron model
-    self.rsrSynapseModel = None
-    
-  ############################################################################
-
   def sobolScan(self,synapseModel,
-                tPeak,hPeak,
+                tStim,hPeak,
                 modelBounds,
                 smoothExpTrace8, smoothExpTrace9,
                 nTrials=6,loadParamsFlag=False,
@@ -1378,7 +1146,7 @@ class OptimiseSynapsesFull(object):
       
       # What was error of the cached parameterset
       if(minPars is not None):
-        minError = self.neuronSynapseHelperGlut(tPeak,
+        minError = self.neuronSynapseHelperGlut(tStim,
                                                 U=minPars[0],
                                                 tauR=minPars[1],
                                                 tauF=minPars[2],
@@ -1401,7 +1169,7 @@ class OptimiseSynapsesFull(object):
         self.writeLog("%d / %d : minError = %g" % (idx, len(USobol),minError))
         self.writeLog(str(minPar))
    
-      error = self.neuronSynapseHelperGlut(tPeak,U,tauR,tauF,tauRatio,
+      error = self.neuronSynapseHelperGlut(tStim,U,tauR,tauF,tauRatio,
                                            cond,nmdaRatio,
                                            smoothExpTrace8=smoothExpTrace8,
                                            smoothExpTrace9=smoothExpTrace9,
@@ -1434,7 +1202,7 @@ class OptimiseSynapsesFull(object):
   ############################################################################
   
   def bestRandom(self,synapseModel,
-                 tPeak,hPeak,
+                 tStim,hPeak,
                  modelBounds,
                  nTrials=5000,loadParamsFlag=False):
 
@@ -1467,7 +1235,7 @@ class OptimiseSynapsesFull(object):
         cond = np.random.uniform(modelBounds[0][4],modelBounds[1][4])
 
       try:
-        peakHeights = self.runModel(tPeak,U,tauR,tauF,tau,cond)
+        peakHeights = self.runModel(tStim,U,tauR,tauF,tau,cond)
       
         error = np.abs(peakHeights - hPeak)
         error[0] *= 3
@@ -1532,10 +1300,10 @@ class OptimiseSynapsesFull(object):
       synapseModel = self.setupModel(params=params)
 
       #(volt,time) = self.getData(dataType,cellID)
-      peakIdx = self.getPeakIdx2(stimTime=self.data["meta_data"]["stim_time"],
+      peakIdx = self.getPeakIdx2(stimTime=self.stimTime,
                                  time=self.time,
                                  volt=self.volt)
-      tSpikes = time[peakIdx]
+      tSpikes = self.time[peakIdx]
     
       sigma = np.ones(len(peakIdx))
       sigma[-1] = 1./3
@@ -1560,7 +1328,7 @@ class OptimiseSynapsesFull(object):
                            "synapseSectionID" : synapseModel.synapseSectionID,
                            "synapseSectionX"  : synapseModel.synapseSectionX,
                            "modelBounds"      : modelBounds,
-                           "stimTime"         : self.stim_time,
+                           "stimTime"         : self.stimTime,
                            "peakHeight"       : peakHeight },
                          block=True)
 
@@ -1571,7 +1339,7 @@ class OptimiseSynapsesFull(object):
         self.dView.execute(cmdStrSetup,block=True)
       
         cmdStr = "res = ly.sobolScan(synapseModel=ly.synapseModel, \
-                                     tPeak = stimTime, \
+                                     tStim = stimTime, \
                                      hPeak = peakHeight, \
                                      parameterSets=parameterPoints, \
                                      modelBounds=modelBounds, \
@@ -1609,7 +1377,7 @@ class OptimiseSynapsesFull(object):
                                 = (synapseModel.synapseSectionID,
                                    synapseModel.synapseSectionX))
 
-        parSet,parError = self.sobolScan(tPeak = self.stim_time, \
+        parSet,parError = self.sobolScan(tStim = self.stimTime, \
                                          hPeak = peakHeight, \
                                          modelBounds=modelBounds, \
                                          smoothExpTrace8=ly.smoothExpVolt8, \
@@ -1664,7 +1432,7 @@ class OptimiseSynapsesFull(object):
 
     params = dict([])
     
-    peakIdx = self.getPeakIdx2(stimTime=self.stim_time,
+    peakIdx = self.getPeakIdx2(stimTime=self.stimTime,
                                time=self.time,
                                volt=self.volt)
     tSpikes = time[peakIdx]
@@ -1678,7 +1446,7 @@ class OptimiseSynapsesFull(object):
                           synapsePositionOverride = synapsePositionOverride)
     
     func = lambda x : \
-           self.neuronSynapseHelperGlut(tSpike=self.stim_time,
+           self.neuronSynapseHelperGlut(tSpike=self.stimTime,
                                         U=x[0],
                                         tauR=x[1],
                                         tauF=x[2],
@@ -1755,16 +1523,14 @@ class OptimiseSynapsesFull(object):
                              chaospy.Uniform(modelBounds[0][3],
                                              modelBounds[1][3]),
                              chaospy.Uniform(modelBounds[0][4],
-                                             modelBounds[1][4]),
-                             chaospy.Uniform(modelBounds[0][5],
-                                             modelBounds[1][5]))
+                                             modelBounds[1][4]))
     
-    USobol,tauRSobol,tauFSobol,tauRatioSobol,condSobol,nmdaRatioSobol \
+    USobol,tauRSobol,tauFSobol,tauRatioSobol,condSobol \
       = distribution.sample(nSets, rule="sobol")
 
     parameterSets = [x for x in zip(USobol, \
                                     tauRSobol,tauFSobol,tauRatioSobol, \
-                                    condSobol,nmdaRatioSobol)]
+                                    condSobol)]
     
     return parameterSets
       
@@ -1966,13 +1732,9 @@ if __name__ == "__main__":
 
   import argparse
   parser = argparse.ArgumentParser(description="Extract synaptic parameters from electrophysiological recordings")
-  parser.add_argument("file", help="HDF5 file to read in")
+  parser.add_argument("file", help="JSON DATA file")
   parser.add_argument("--st", help="Synapse type (glut or gaba)",
                       choices=["glut","gaba"])
-  parser.add_argument("--type", help="Cell types",
-                      choices=["MSN","FS","LTS","CHAT"])
-  parser.add_argument("--id",
-                      help="Cell ID, comma separated no spaces, eg. 1,2,3,7")
   parser.add_argument("--optMethod",
                       help="Optimisation method",
                       choices=["sobol","stupid","swarm"],
@@ -1997,7 +1759,6 @@ if __name__ == "__main__":
     from ipyparallel import Client
     rc = Client(profile=os.getenv('IPYTHON_PROFILE'),
                 debug=False)
-    print('Client IDs: ' + str(rc.ids))
 
     # http://davidmasad.com/blog/simulation-with-ipyparallel/
     # http://people.duke.edu/~ccc14/sta-663-2016/19C_IPyParallel.html
@@ -2025,7 +1786,6 @@ if __name__ == "__main__":
     else:
       prettyPlotFlag = False
     
-    assert args.id is not None, "You need to specify which trace(s) to plot"
     ly.plotData(show=True,prettyPlot=prettyPlotFlag)
 
     exit(0)

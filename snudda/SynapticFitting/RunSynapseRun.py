@@ -92,10 +92,10 @@ class RunSynapseRun(object):
                                                    sectionID=synapseSectionID,
                                                    sectionX=synapseSectionX)
     
-    self.stimTimes = stimTimes*1e3
+    self.stimTimes = np.array(stimTimes) 
 
     # Assumes input in seconds (SI units)
-    self.connectInputToSynapses(stimTimes)
+    self.connectInputToSynapses(self.stimTimes)
     
     self.somaRecord()
     self.synapseCurrentRecord()
