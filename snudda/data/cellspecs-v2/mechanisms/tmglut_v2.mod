@@ -22,8 +22,8 @@ ENDCOMMENT
 
 NEURON {
     THREADSAFE
-    POINT_PROCESS tmGlut_M1RH_D1
-    RANGE tau1_ampa, tau2_ampa, tau1_nmda, tau2_nmda
+    POINT_PROCESS tmGlut_v2
+    RANGE tau_1_ampa, tau_2_ampa, tau_3_ampa, tau_1_nmda, tau_2_nmda, tau_3_nmda, tpeak_ampa, tpeak_nmda
     RANGE g_ampa, g_nmda, i_ampa, i_nmda, nmda_ratio
     RANGE e, g, i, q, mg
     RANGE tau, tauR, tauF, U, u0
@@ -42,12 +42,12 @@ UNITS {
 
 PARAMETER {
     : input_region = M1RH-ipsi ; cell_type = D1-MSN
-    tau1_ampa= 0.819    (ms)     
-    tau2_ampa = 4.626   (ms)  
-    tau3_ampa = 64.295  (ms)  
-    tau1_nmda= 1.729    (ms)  
-    tau2_nmda = 34.413  (ms)  
-    tau3_nmda = 212.116 (ms) 
+    tau_1_ampa= 0.819    (ms)     
+    tau_2_ampa = 4.626   (ms)  
+    tau_3_ampa = 64.295  (ms)  
+    tau_1_nmda= 1.729    (ms)  
+    tau_2_nmda = 34.413  (ms)  
+    tau_3_nmda = 212.116 (ms) 
     nmda_ratio = 0.5 (1)
     e = 0 (mV)
     tau = 3 (ms)
@@ -64,6 +64,9 @@ PARAMETER {
 
     use_stp = 1     : to turn of use_stp -> use 0
     failRate = 0
+
+    tpeak_nmda = 1.0 : These MUST be replaced
+    tpeak_ampa = 1.0 : see above.					
 }
 
 ASSIGNED {
@@ -93,20 +96,19 @@ STATE {
 }
 
 INITIAL {
-    LOCAL tp_ampa, tp_nmda
     A_ampa = 0
     B_ampa = 0
     C_ampa = 0
 				
-    tp_ampa = 1.628
-    factor_ampa = -exp(-tp_ampa/tau1_ampa) + exp(-tp_ampa/tau2_ampa) + exp(-tp_ampa/tau3_ampa)
+    tpeak_ampa = 1.628
+    factor_ampa = -exp(-tpeak_ampa/tau_1_ampa) + exp(-tpeak_ampa/tau_2_ampa) + exp(-tpeak_ampa/tau_3_ampa)
     factor_ampa = 1/factor_ampa
 								    
     A_nmda = 0
     B_nmda = 0
     C_nmda = 0
-    tp_nmda = 5.137
-    factor_nmda = -exp(-tp_nmda/tau1_nmda) + exp(-tp_nmda/tau2_nmda) + exp(-tp_nmda/tau3_nmda)
+    tpeak_nmda = 5.137
+    factor_nmda = -exp(-tpeak_nmda/tau_1_nmda) + exp(-tpeak_nmda/tau_2_nmda) + exp(-tpeak_nmda/tau_3_nmda)
     factor_nmda = 1/factor_nmda
 }
 
@@ -137,12 +139,12 @@ BREAKPOINT {
 }
 
 DERIVATIVE state {
-    A_ampa' = -A_ampa/tau1_ampa
-    B_ampa' = -B_ampa/tau2_ampa
-    C_ampa' = -C_ampa/tau3_ampa
-    A_nmda' = -A_nmda/tau1_nmda
-    B_nmda' = -B_nmda/tau2_nmda
-    C_nmda' = -C_nmda/tau3_nmda
+    A_ampa' = -A_ampa/tau_1_ampa
+    B_ampa' = -B_ampa/tau_2_ampa
+    C_ampa' = -C_ampa/tau_3_ampa
+    A_nmda' = -A_nmda/tau_1_nmda
+    B_nmda' = -B_nmda/tau_2_nmda
+    C_nmda' = -C_nmda/tau_3_nmda
 }
 
 NET_RECEIVE(weight (uS), y, z, u, tsyn (ms)) {

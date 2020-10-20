@@ -277,7 +277,7 @@ class RunSynapseRun(object):
     
     try:
       if(synapseType.lower() == 'glut'):
-        syn = neuron.h.tmGlut(section(sectionX))
+        syn = neuron.h.tmGlut_v2(section(sectionX))
       elif(synapseType.lower() == "gaba"):
         syn = neuron.h.tmGabaA(section(sectionX))
       else:
@@ -433,7 +433,18 @@ class RunSynapseRun(object):
                    "tauF" : 1e3,
                    "cond" : 1e6,
                    "tau" : 1e3,
-                   "nmda_ratio" : 1.0 }
+                   "nmda_ratio" : 1.0,
+                   
+                   "tau_1_ampa" : 1.0, # Ilaria's file has ms already
+                   "tau_2_ampa" : 1.0, # Ilaria's file has ms already
+                   "tau_3_ampa" : 1.0, # Ilaria's file has ms already
+                   "tau_1_nmda" : 1.0, # Ilaria's file has ms already
+                   "tau_2_nmda" : 1.0, # Ilaria's file has ms already
+                   "tau_3_nmda" : 1.0, # Ilaria's file has ms already
+                   "tpeak_ampa" : 1.0, # Ilaria's file has ms already
+                   "tpeak_nmda" : 1.0, # Ilaria's file has ms already :/
+                   "ratio_nmda" : 1.0
+    }
 
     if varName not in convFactor:
       self.writeLog("Missing conversion fractor for " + str(varName) \

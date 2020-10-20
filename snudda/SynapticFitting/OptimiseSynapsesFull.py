@@ -18,6 +18,8 @@ import time
 # Please fix.
 #
 #
+# python3 OptimiseSynapsesFull.py DATA/Yvonne2020/M1RH-ipsi_MSN_D1_20Hz_depressing.json --synapseParameters ../data/synapses/v3/M1RH-ipsi_D1-MSN.json --st glut
+#
 #
 # TODO 2020-10-09
 #
@@ -100,13 +102,14 @@ class OptimiseSynapsesFull(object):
 
   # optMethod not used anymore, potentially allow user to set sobol or refine
 
-  # fileName is JSON file from Ilaria's Igor extraction
+  # datafile is JSON file from Ilaria's Igor extraction
   
-  def __init__(self, fileName, synapseType="glut",loadCache=True,
+  def __init__(self, datafile, synapseType="glut",loadCache=True,
                role="master",dView=None,verbose=True,logFileName=None,
                optMethod="sobol",prettyPlot=False,
                model_bounds="model_bounds.json",
-               neuronSetFile="neuronSet.json"):
+               neuronSetFile="neuronSet.json",
+               synapseParameterFile=None):
 
     # Parallel execution role, "master" or "servant"
     self.role = role
@@ -136,10 +139,10 @@ class OptimiseSynapsesFull(object):
       
     self.figResolution = 300
 
-    self.fileName = fileName
+    self.datafile = datafile
 
-    self.writeLog("Loading " + str(fileName))
-    with open(fileName,"r") as f:
+    self.writeLog("Loading " + str(datafile))
+    with open(datafile,"r") as f:
       self.data = json.load(f)
       
       self.volt = np.array(self.data["data"]["mean_norm_trace"])
@@ -151,8 +154,18 @@ class OptimiseSynapsesFull(object):
       self.stimTime = np.array(self.data["metadata"]["stim_time"]) * 1e-3 # ms
       
       self.cellType = self.data["metadata"]["cell_type"]
+
+    self.synapseParameterFile = synapseParameterFile
+    
+    if synapseParameterFile:
+      with open(synapseParameterFile,'r') as f:
+        print(f"Reading synapse parameters from {synapseParameterFile}")
+        tmp = json.load(f)
+        self.synapseParameters = tmp["data"]
+    else:
+      self.synapseParameters = {}
       
-    self.cacheFileName = str(self.fileName) + "-parameters-full.json"
+    self.cacheFileName = str(self.datafile) + "-parameters-full.json"
     self.loadCache = loadCache
     self.synapseType = synapseType
 
@@ -324,11 +337,14 @@ class OptimiseSynapsesFull(object):
 
   
   def plotData(self,
-               params={},
+               params=None,
                show=True,
                skipTime=0.3,
                prettyPlot=None):
       
+
+    if params is None:
+      params = self.synapseParameters
     
     if(prettyPlot is None):
       prettyPlot = self.prettyPlot
@@ -433,7 +449,7 @@ class OptimiseSynapsesFull(object):
     if(not os.path.exists("figures/")):
       os.makedirs("figures/")
     
-    baseName = os.path.splitext(os.path.basename(self.fileName))[0]
+    baseName = os.path.splitext(os.path.basename(self.datafile))[0]
     figName = "figures/" + baseName + ".pdf"
     plt.savefig(figName,dpi=self.figResolution)
 
@@ -961,8 +977,7 @@ class OptimiseSynapsesFull(object):
     if(self.debugParsFlag):
       self.debugPars.append([U, tauR, tauF, tauRatio, cond])
 
-    !!! WE NEED TO HAVE THE CORRECT PARAMS HERE !!!
-    params = { "nmda_ratio" : nmdaRatio }
+    params = self.synaseParameters
     tau = tauR * tauRatio
     
     peakH,tSim,vSim = self.runModel(tSpike,U,
@@ -1281,8 +1296,7 @@ class OptimiseSynapsesFull(object):
     if(self.role == "master"):
 
       # 1. Setup workers
-      !!! This needs to be the parameters for nmda_ampa_ratio !!!
-      params = dict([])
+      params = self.synapseParameters
 
       # 2. Setup one cell to optimise, randomise synapse positions
       synapseModel = self.setupModel(params=params)
@@ -1419,7 +1433,8 @@ class OptimiseSynapsesFull(object):
 
     synapsePositionOverride = (sectionID,sectionX)
 
-    params = dict([])
+    # Make sure we have correct taus etc for synapse
+    params = self.synapseParameters
     
     peakIdx = self.getPeakIdx2(stimTime=self.stimTime,
                                time=self.time,
@@ -1626,12 +1641,13 @@ class OptimiseSynapsesFull(object):
     nWorkers = len(self.dView)
     self.dView.scatter("engineLogFile",engineLogFile) 
     
-    self.dView.push({"fileName": self.fileName,
+    self.dView.push({"datafile": self.datafile,
                      "synapseType" : self.synapseType,
+                     "synapseparameters" : self.synapseParameterFile,
                      "loadCache" : self.loadCache,
                      "role" : "servant"})
 
-    cmdStr = "ly = OptimiseSynapsesFull(fileName=fileName, synapseType=synapseType,loadCache=loadCache,role=role,logFileName=engineLogFile[0])"
+    cmdStr = "ly = OptimiseSynapsesFull(datafile=datafile, synapseParameterFile=synapseparameters, synapseType=synapseType,loadCache=loadCache,role=role,logFileName=engineLogFile[0])"
     self.dView.execute(cmdStr,block=True)
     self.parallelSetupFlag = True
 
@@ -1709,7 +1725,9 @@ if __name__ == "__main__":
 
   import argparse
   parser = argparse.ArgumentParser(description="Extract synaptic parameters from electrophysiological recordings")
-  parser.add_argument("file", help="JSON DATA file")
+  parser.add_argument("datafile", help="JSON DATA file")
+  parser.add_argument("--synapseParameters", help="Static synapse parameters (JSON)",
+                      default=None)
   parser.add_argument("--st", help="Synapse type (glut or gaba)",
                       choices=["glut","gaba"])
   parser.add_argument("--optMethod",
@@ -1725,8 +1743,9 @@ if __name__ == "__main__":
 
   optMethod = args.optMethod
   
-  print("Reading file : " + args.file)
+  print("Reading file : " + args.datafile)
   print("Synapse type : " + args.st)
+  print("Synapse params :" + args.synapseParameters)
   print("Optimisation method : " + optMethod)
 
   print("IPYTHON_PROFILE = " + str(os.getenv('IPYTHON_PROFILE')))
@@ -1745,14 +1764,16 @@ if __name__ == "__main__":
     dView = None
 
   
-  logFileName = "logs/" + os.path.basename(args.file) + "-log.txt"
+  logFileName = "logs/" + os.path.basename(args.datafile) + "-log.txt"
   if(not os.path.exists("logs/")):
     os.makedirs("logs/")
      
   
   
   # "DATA/Yvonne2019/M1RH_Analysis_190925.h5"
-  ly = OptimiseSynapsesFull(args.file,synapseType=args.st,dView=dView,
+  ly = OptimiseSynapsesFull(datafile=args.datafile,
+                            synapseParameterFile=args.synapseParameters,
+                            synapseType=args.st,dView=dView,
                             role="master",
                             logFileName=logFileName,optMethod=optMethod)
   
@@ -1762,7 +1783,7 @@ if __name__ == "__main__":
       prettyPlotFlag = True
     else:
       prettyPlotFlag = False
-    
+
     ly.plotData(show=True,prettyPlot=prettyPlotFlag)
 
     exit(0)
