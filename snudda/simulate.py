@@ -1785,6 +1785,8 @@ if __name__ == "__main__":
         print("Creating directory " + save_dir)
         os.makedirs(save_dir, exist_ok=True)
 
+    pc = h.ParallelContext()
+
     # Get the SlurmID, used in default file names
     slurm_id = os.getenv('SLURM_JOBID')
 
@@ -1796,6 +1798,11 @@ if __name__ == "__main__":
         except:
             print("Failed to auto detect SlurmID, defaulting to 666")
             slurm_id = str(666)
+
+        slurm_id += "-" + str(pc.nhost()) \
+                  + "-" + str(pc.id()) \
+                  + "-" + str(int(args.time * 1000)) + "ms"
+        print("slurm_id: " + slurm_id)
 
     if args.voltOut is None:
         # Do not save neuron soma voltage
@@ -1819,8 +1826,6 @@ if __name__ == "__main__":
     if disableGJ:
         print("!!! WE HAVE DISABLED GAP JUNCTIONS !!!")
 
-    pc = h.ParallelContext()
-
     sim = SnuddaSimulate(network_file=network_data_file,
                          input_file=input_file,
                          disable_gap_junctions=disableGJ,
@@ -1838,6 +1843,22 @@ if __name__ == "__main__":
         # sim.addRecordingOfType("FSN",2)
         # sim.addRecordingOfType("LTS",2)
         # sim.addRecordingOfType("ChIN",2)
+
+    coredat_path = os.path.dirname(network_data_file) + "/core-" + str(pc.nhost())
+    rank = sim.pc.id()
+    sim.pc.barrier()
+    if rank == 0 and coredat_path != None and not os.path.isdir(coredat_path):
+        os.mkdir(coredat_path)
+    sim.pc.barrier()
+    h.secondorder = 1
+    h.cvode.cache_efficient(1)
+    sim.pc.set_maxstep(10)
+    h.stdinit()
+    if coredat_path is not None:
+        print("begin to write cores...")
+        sim.pc.nrnbbcore_write(coredat_path)
+        print("finish writing cores")
+    sim.pc.barrier()
 
     tSim = args.time * 1000  # Convert from s to ms for Neuron simulator
 

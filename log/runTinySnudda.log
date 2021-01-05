@@ -1,0 +1,1492 @@
++ network=tinySim
++ basedir=./networks
++ networkdir=./networks/tinySim
++ size=100
++ snudda init ./networks/tinySim --size 100 --overwrite
+Creating config file
+Network path: ./networks/tinySim
+CreateConfig
+Overriding the number of population units
+Using 1 Population Units
+Adding Striatum with 100 neurons
+Using cube for striatum
+Creating cube mesh
+File: ./networks/tinySim/mesh/Striatum-cube-mesh-0.00010749824478388102.obj
+Centre: [0.00354  0.004645 0.005081]
+Side: 0.00010749824478388102
+Description: Striatum cube mesh, centre: [0.00354  0.004645 0.005081], side: 0.00010749824478388102
+Adding neurons: FSN from dir /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/fs
+Adding neurons: dSPN from dir /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn
+Adding neurons: iSPN from dir /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn
+Adding neurons: ChIN from dir /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/chin
+Checking boundaries, to make sure P is not too high
+LTS axon density P([-0.0002],[-0.0001],[-3.e-05]) = [1.84256218e-10]
+LTS axon density P([-0.0002],[-0.0001],[3.e-05]) = [1.84256218e-10]
+LTS axon density P([-0.0002],[0.0001],[-3.e-05]) = [1.84256218e-10]
+LTS axon density P([-0.0002],[0.0001],[3.e-05]) = [1.84256218e-10]
+LTS axon density P([0.0009],[-0.0001],[-3.e-05]) = [1.72360142e-23]
+LTS axon density P([0.0009],[-0.0001],[3.e-05]) = [1.72360142e-23]
+LTS axon density P([0.0009],[0.0001],[-3.e-05]) = [1.72360142e-23]
+LTS axon density P([0.0009],[0.0001],[3.e-05]) = [1.72360142e-23]
+Adding neurons: LTS from dir /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/lts
+Adding GPe with 0 neurons
+Adding GPi with 0 neurons
+Adding SNr with 0 neurons
+Adding STN with 0 neurons
+Adding Cortex with 0 neurons
+Adding Thalamus with 0 neurons
+Writing ./networks/tinySim/network-config.json
++ snudda place ./networks/tinySim
+Placing neurons
+Network path: ./networks/tinySim
+Using runID = 9
+Using hdf5 version: latest
+Parsing configuration file ./networks/tinySim/network-config.json
+Using mesh_bin_width 0.00010749824478388102
+Cube mesh, switching to serial processing.
+Found old cache file (./networks/tinySim/mesh/Striatum-cube-mesh-0.00010749824478388102.obj-107-cache.pickle), ignoring.
+Running in serial
+Voxel mask: 5x5x5
+Processing x = 0
+Processing x = 1
+Processing x = 2
+Processing x = 3
+Processing x = 4
+Fraction of border voxels: 0.0
+Saving mesh cache file ./networks/tinySim/mesh/Striatum-cube-mesh-0.00010749824478388102.obj-107-cache.pickle
+Calculation time: 0.010993968928232789 s
+Setup voxel list
+Setup place neurons
+Update padding mask
+Regenerating new random pool
+Setup done
+Inner voxel bin volume: 0.0 mm³
+Using dimensions from config file
+Adding: 1 FSN_1
+No cache file found.
+Saving cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/fs/str-fs-e161024_FS16-mDR-rat-Mar-13-08-1-536-R-v20190225/DR-rat-Mar-13-08-1-536-R-cor-rep-cache.pickle
+Placed 1 in 0.0003571400884538889 s
+Adding: 12 dSPN_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150602_c1_D1-mWT-0728MSN01-v20190508/WT-0728MSN01-cor-rep-ax-cache.pickle
+Placed 12 in 0.03254763688892126 s
+Adding: 12 dSPN_1
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c10_D1-mWT-P270-20-v20190521/WT-P270-20-15ak-cor-cache.pickle
+Placed 12 in 0.053498643916100264 s
+Adding: 12 dSPN_2
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c6_D1-m21-6-DE-v20190503/21-6-DE-cor-rep-ax-cache.pickle
+Placed 12 in 0.06238957610912621 s
+Adding: 12 dSPN_3
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c9_d1-mWT-1215MSN03-v20190521/WT-1215MSN03-cor-rep-ax2-cache.pickle
+Placed 12 in 0.08230691705830395 s
+Adding: 12 iSPN_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150908_c4_D2-m51-5-DE-v20190611/51-5-DE-cor-rep-ax-cache.pickle
+Placed 12 in 0.0938419159501791 s
+Adding: 12 iSPN_1
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150917_c11_D2-mWT-MSN1-v20190603/WT-MSN1-cor-rep-ax-cache.pickle
+Placed 12 in 0.10931592201814055 s
+Adding: 12 iSPN_2
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e151123_c1_D2-mWT-P270-09-v20190527/WT-P270-09-15ak-cor-cache.pickle
+Placed 12 in 0.1535621890798211 s
+Adding: 12 iSPN_3
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e160118_c10_D2-m46-3-DE-v20190529/46-3-DE-cor-rep-ax-cache.pickle
+Placed 12 in 0.15448351902887225 s
+Adding: 1 ChIN_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/chin/str-chin-e170614_cell6-m17JUL301751_170614_no6_MD_cell_1_x63-v20190710/optim_chin_morph_renamed2019-11-08-cache.pickle
+Placed 1 in 0.0035778379533439875 s
+Adding: 1 LTS_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/lts/LTS_Experiment-9862_20181211/lts_morp_2019-11-07_centered_no_axon-cache.pickle
+Placed 1 in 0.02509802603162825 s
+Re-sorting the neuron IDs after location
+No population centres specified.
+Writing data to HDF5 file: ./networks/tinySim/network-neuron-positions.hdf5
+
+Program run time: 4.269909254973754
++ snudda detect ./networks/tinySim
+Touch detection
+Network path: ./networks/tinySim
+Using runID = 10
+Already have a log file setup, ignoring
+Using hdf5 driver version: latest
+Memory: 442391842816 free, 540740567040 total
+Each hyper voxel has 100 x 100 x 100 voxels
+Touch detecting all volumes
+Loading from ./networks/tinySim/network-config.json
+Reading prototype for: FSN_1
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/fs/str-fs-e161024_FS16-mDR-rat-Mar-13-08-1-536-R-v20190225/DR-rat-Mar-13-08-1-536-R-cor-rep-cache.pickle
+Reading prototype for: dSPN_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150602_c1_D1-mWT-0728MSN01-v20190508/WT-0728MSN01-cor-rep-ax-cache.pickle
+Reading prototype for: dSPN_1
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c10_D1-mWT-P270-20-v20190521/WT-P270-20-15ak-cor-cache.pickle
+Reading prototype for: dSPN_2
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c6_D1-m21-6-DE-v20190503/21-6-DE-cor-rep-ax-cache.pickle
+Reading prototype for: dSPN_3
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c9_d1-mWT-1215MSN03-v20190521/WT-1215MSN03-cor-rep-ax2-cache.pickle
+Reading prototype for: iSPN_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150908_c4_D2-m51-5-DE-v20190611/51-5-DE-cor-rep-ax-cache.pickle
+Reading prototype for: iSPN_1
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150917_c11_D2-mWT-MSN1-v20190603/WT-MSN1-cor-rep-ax-cache.pickle
+Reading prototype for: iSPN_2
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e151123_c1_D2-mWT-P270-09-v20190527/WT-P270-09-15ak-cor-cache.pickle
+Reading prototype for: iSPN_3
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e160118_c10_D2-m46-3-DE-v20190529/46-3-DE-cor-rep-ax-cache.pickle
+Reading prototype for: ChIN_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/chin/str-chin-e170614_cell6-m17JUL301751_170614_no6_MD_cell_1_x63-v20190710/optim_chin_morph_renamed2019-11-08-cache.pickle
+Setting axon density for neuron without axon
+Only saving equation now
+Reading prototype for: LTS_0
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/lts/LTS_Experiment-9862_20181211/lts_morp_2019-11-07_centered_no_axon-cache.pickle
+Setting axon density for neuron without axon
+Only saving equation now
+Loading connectivity information
+Memory: 442376822784 free, 540740567040 total
+Reading positions from file: ./networks/tinySim/network-neuron-positions.hdf5
+Loading ./networks/tinySim/network-neuron-positions.hdf5
+No SlurmID set, using -1
+Load done. 0.009971195133402944
+Memory: 442377437184 free, 540740567040 total
+Position file read.
+setupParallel called without dView, aborting.
+Removing old work history file
+Work history file: ./networks/tinySim//log/network-detect-worklog.hdf5
+Writing metadata to work history file
+Write neuron data to file
+No dView specified, running distribute neurons in serial
+distributeNeurons: neuronIdx = [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+ 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71
+ 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95
+ 96 97 98] (n=99)
+distributeNeurons: calculating min and max coords
+Finding minMax coord in volumeID = None
+64 hyper voxels in total
+Pre allocation done.
+Calculated distribution of neurons: 3.041775223100558 seconds
+Writing neuron distribution history to file
+setupProcessHyperVoxelStateHistory: Creating new work history.
+Skipping 38 empty hyper voxels
+Processing hyper voxel : 21/64 (99 neurons)
+Trying to place 464915 points to get 4622.0 axon voxels filled
+Placing 40727 random axon points for ChIN_0
+nPoints = 40727
+place_synapses_no_axon_sphere: 0.2663877659942955s, hyper ID: 21
+Create lookup table
+detectSynapses: 121220 took 5.158654459984973s
+Create lookup table
+detectGapJunctions: 0.9925209230277687s
+Wrote hyper voxel 21 (121220 synapses, 0 gap junctions)
+HyperID 21 completed - 121220 synapses and 0 gap junctions found (68.47776992199942s)
+Processing hyper voxel : 5/64 (91 neurons)
+Create lookup table
+detectSynapses: 2236 took 0.12217156402766705s
+Create lookup table
+detectGapJunctions: 0.07807748485356569s
+Wrote hyper voxel 5 (2236 synapses, 0 gap junctions)
+HyperID 5 completed - 2236 synapses and 0 gap junctions found (37.535163783002645s)
+Processing hyper voxel : 17/64 (88 neurons)
+Trying to place 12269 points to get 9.0 axon voxels filled
+Placing 40727 random axon points for ChIN_0(cached)
+nPoints = 40727
+place_synapses_no_axon_sphere: 0.1482858620584011s, hyper ID: 17
+Create lookup table
+detectSynapses: 805 took 0.06445489195175469s
+Create lookup table
+detectGapJunctions: 0.036304134177044034s
+Wrote hyper voxel 17 (805 synapses, 0 gap junctions)
+HyperID 17 completed - 805 synapses and 0 gap junctions found (34.31236339500174s)
+Processing hyper voxel : 20/64 (82 neurons)
+Trying to place 530255 points to get 8314.0 axon voxels filled
+Placing 40727 random axon points for ChIN_0(cached)
+nPoints = 40727
+place_synapses_no_axon_sphere: 0.3045919481664896s, hyper ID: 20
+Create lookup table
+detectSynapses: 948 took 0.05290586198680103s
+Create lookup table
+detectGapJunctions: 0.03655341197736561s
+Wrote hyper voxel 20 (948 synapses, 0 gap junctions)
+HyperID 20 completed - 948 synapses and 0 gap junctions found (32.10128483292647s)
+Processing hyper voxel : 22/64 (65 neurons)
+Trying to place 35436 points to get 42.0 axon voxels filled
+place_synapses_no_axon_sphere: 0.004481102107092738s, hyper ID: 22
+Create lookup table
+detectSynapses: 57 took 0.013969955034554005s
+Create lookup table
+detectGapJunctions: 0.017215457977727056s
+Wrote hyper voxel 22 (57 synapses, 0 gap junctions)
+HyperID 22 completed - 57 synapses and 0 gap junctions found (22.03848871192895s)
+Processing hyper voxel : 25/64 (64 neurons)
+Create lookup table
+detectSynapses: 28 took 0.009666784200817347s
+Create lookup table
+detectGapJunctions: 0.011234951904043555s
+Wrote hyper voxel 25 (28 synapses, 0 gap junctions)
+HyperID 25 completed - 28 synapses and 0 gap junctions found (18.8004890459124s)
+Processing hyper voxel : 37/64 (58 neurons)
+Placing 40727 random axon points for ChIN_0(cached)
+nPoints = 40727
+place_synapses_no_axon_sphere: 0.03505726018920541s, hyper ID: 37
+Create lookup table
+detectSynapses: 15 took 0.007071533007547259s
+Create lookup table
+detectGapJunctions: 0.007781726075336337s
+Wrote hyper voxel 37 (15 synapses, 0 gap junctions)
+HyperID 37 completed - 15 synapses and 0 gap junctions found (17.387515095062554s)
+Processing hyper voxel : 16/64 (49 neurons)
+Bounding box appears to be outside hyper voxel
+place_synapses_no_axon_sphere: 0.0010979368817061186s, hyper ID: 16
+Create lookup table
+detectSynapses: 2 took 0.00961991585791111s
+Create lookup table
+detectGapJunctions: 0.0051412920001894236s
+Wrote hyper voxel 16 (2 synapses, 0 gap junctions)
+HyperID 16 completed - 2 synapses and 0 gap junctions found (19.335913698887452s)
+Processing hyper voxel : 1/64 (48 neurons)
+Placing 40727 random axon points for ChIN_0(cached)
+nPoints = 40727
+place_synapses_no_axon_sphere: 0.03804835700429976s, hyper ID: 1
+Create lookup table
+detectSynapses: 21 took 0.007890864973887801s
+Create lookup table
+detectGapJunctions: 0.005714440019801259s
+Wrote hyper voxel 1 (21 synapses, 0 gap junctions)
+HyperID 1 completed - 21 synapses and 0 gap junctions found (17.827541602076963s)
+Processing hyper voxel : 4/64 (44 neurons)
+Create lookup table
+detectSynapses: 22 took 0.00943278195336461s
+Create lookup table
+detectGapJunctions: 0.006227289093658328s
+Wrote hyper voxel 4 (22 synapses, 0 gap junctions)
+HyperID 4 completed - 22 synapses and 0 gap junctions found (18.62210668087937s)
+Processing hyper voxel : 9/64 (35 neurons)
+Create lookup table
+detectSynapses: 3 took 0.006827276898548007s
+Create lookup table
+detectGapJunctions: 0.005065832054242492s
+Wrote hyper voxel 9 (3 synapses, 0 gap junctions)
+HyperID 9 completed - 3 synapses and 0 gap junctions found (11.292025181930512s)
+Processing hyper voxel : 6/64 (25 neurons)
+Create lookup table
+detectSynapses: 0 took 0.007287960033863783s
+Create lookup table
+detectGapJunctions: 0.004039139952510595s
+Wrote hyper voxel 6 (0 synapses, 0 gap junctions)
+HyperID 6 completed - 0 synapses and 0 gap junctions found (8.518010210013017s)
+Processing hyper voxel : 18/64 (22 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006468244129791856s
+Create lookup table
+detectGapJunctions: 0.004271415993571281s
+Wrote hyper voxel 18 (0 synapses, 0 gap junctions)
+HyperID 18 completed - 0 synapses and 0 gap junctions found (7.39798410795629s)
+Processing hyper voxel : 24/64 (21 neurons)
+Trying to place 91924 points to get 44.0 axon voxels filled
+place_synapses_no_axon_sphere: 0.008487947983667254s, hyper ID: 24
+Create lookup table
+detectSynapses: 0 took 0.00897858408279717s
+Create lookup table
+detectGapJunctions: 0.005994879873469472s
+Wrote hyper voxel 24 (0 synapses, 0 gap junctions)
+HyperID 24 completed - 0 synapses and 0 gap junctions found (7.24736362695694s)
+Processing hyper voxel : 36/64 (20 neurons)
+Placing 40727 random axon points for ChIN_0(cached)
+nPoints = 40727
+place_synapses_no_axon_sphere: 0.029312710976228118s, hyper ID: 36
+Create lookup table
+detectSynapses: 0 took 0.007986441953107715s
+Create lookup table
+detectGapJunctions: 0.004471500171348453s
+Wrote hyper voxel 36 (0 synapses, 0 gap junctions)
+HyperID 36 completed - 0 synapses and 0 gap junctions found (6.480906011071056s)
+Processing hyper voxel : 0/64 (20 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006462994962930679s
+Create lookup table
+detectGapJunctions: 0.004213462816551328s
+Wrote hyper voxel 0 (0 synapses, 0 gap junctions)
+HyperID 0 completed - 0 synapses and 0 gap junctions found (9.618951947195455s)
+Processing hyper voxel : 33/64 (17 neurons)
+Placing 40727 random axon points for ChIN_0(cached)
+nPoints = 40727
+place_synapses_no_axon_sphere: 0.034397988114506006s, hyper ID: 33
+Create lookup table
+detectSynapses: 0 took 0.007099504116922617s
+Create lookup table
+detectGapJunctions: 0.004574588034301996s
+Wrote hyper voxel 33 (0 synapses, 0 gap junctions)
+HyperID 33 completed - 0 synapses and 0 gap junctions found (5.5054428309667856s)
+Processing hyper voxel : 26/64 (12 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006711134919896722s
+Create lookup table
+detectGapJunctions: 0.004620549967512488s
+Wrote hyper voxel 26 (0 synapses, 0 gap junctions)
+HyperID 26 completed - 0 synapses and 0 gap junctions found (4.712514978833497s)
+Processing hyper voxel : 38/64 (11 neurons)
+Create lookup table
+detectSynapses: 0 took 0.0062298960983753204s
+Create lookup table
+detectGapJunctions: 0.003875473979860544s
+Wrote hyper voxel 38 (0 synapses, 0 gap junctions)
+HyperID 38 completed - 0 synapses and 0 gap junctions found (4.324463377939537s)
+Processing hyper voxel : 8/64 (8 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006198096089065075s
+Create lookup table
+detectGapJunctions: 0.0037058291491121054s
+Wrote hyper voxel 8 (0 synapses, 0 gap junctions)
+HyperID 8 completed - 0 synapses and 0 gap junctions found (3.542801069095731s)
+Processing hyper voxel : 2/64 (7 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006753164809197187s
+Create lookup table
+detectGapJunctions: 0.004129010951146483s
+Wrote hyper voxel 2 (0 synapses, 0 gap junctions)
+HyperID 2 completed - 0 synapses and 0 gap junctions found (2.4661140150856227s)
+Processing hyper voxel : 41/64 (3 neurons)
+Create lookup table
+detectSynapses: 0 took 0.0065064209047704935s
+Create lookup table
+detectGapJunctions: 0.0046402758453041315s
+Wrote hyper voxel 41 (0 synapses, 0 gap junctions)
+HyperID 41 completed - 0 synapses and 0 gap junctions found (1.3672338211908937s)
+Processing hyper voxel : 34/64 (2 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006651456002146006s
+Create lookup table
+detectGapJunctions: 0.004239439032971859s
+Wrote hyper voxel 34 (0 synapses, 0 gap junctions)
+HyperID 34 completed - 0 synapses and 0 gap junctions found (1.962475780164823s)
+Processing hyper voxel : 40/64 (2 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006248613819479942s
+Create lookup table
+detectGapJunctions: 0.004012176999822259s
+Wrote hyper voxel 40 (0 synapses, 0 gap junctions)
+HyperID 40 completed - 0 synapses and 0 gap junctions found (0.8686403920874s)
+Processing hyper voxel : 10/64 (1 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006520835915580392s
+Create lookup table
+detectGapJunctions: 0.004073997028172016s
+Wrote hyper voxel 10 (0 synapses, 0 gap junctions)
+HyperID 10 completed - 0 synapses and 0 gap junctions found (0.5536693870089948s)
+Processing hyper voxel : 32/64 (1 neurons)
+Create lookup table
+detectSynapses: 0 took 0.006670254981145263s
+Create lookup table
+detectGapJunctions: 0.004266374045982957s
+Wrote hyper voxel 32 (0 synapses, 0 gap junctions)
+HyperID 32 completed - 0 synapses and 0 gap junctions found (0.536623622989282s)
+
+Program run time: 366.2069752169773
++ snudda prune ./networks/tinySim
+Prune synapses
+Network path: ./networks/tinySim
+Using runID = 11
+preMergeOnly : False
+Setting random seed: None
+Using hdf5 driver sec2, latest version
+Opening work history file: ./networks/tinySim/log/network-detect-worklog.hdf5
+Using default scratch path: ./networks/tinySim//temp/
+Checking for merge file ./networks/tinySim//network-putative-synapses-MERGED.hdf5
+Running merge in serial
+Doing bigMerge (lookup) for synapses
+[0, 521, 1048576, 0.75]
+(0, 521, 20971520, 0.75)
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-21.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-5.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-17.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-20.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-22.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-25.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-37.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-16.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-1.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-4.hdf5
+[0, 521, 20971520, 0.75]
+Opening voxel file: ./networks/tinySim//voxels/network-putative-synapses-9.hdf5
+[0, 521, 20971520, 0.75]
+Setting up out file ./networks/tinySim//network-putative-synapses-MERGED.hdf5
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/fs/str-fs-e161024_FS16-mDR-rat-Mar-13-08-1-536-R-v20190225/DR-rat-Mar-13-08-1-536-R-cor-rep.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150602_c1_D1-mWT-0728MSN01-v20190508/WT-0728MSN01-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c10_D1-mWT-P270-20-v20190521/WT-P270-20-15ak-cor.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c6_D1-m21-6-DE-v20190503/21-6-DE-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c9_d1-mWT-1215MSN03-v20190521/WT-1215MSN03-cor-rep-ax2.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150908_c4_D2-m51-5-DE-v20190611/51-5-DE-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150917_c11_D2-mWT-MSN1-v20190603/WT-MSN1-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e151123_c1_D2-mWT-P270-09-v20190527/WT-P270-09-15ak-cor.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e160118_c10_D2-m46-3-DE-v20190529/46-3-DE-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/chin/str-chin-e170614_cell6-m17JUL301751_170614_no6_MD_cell_1_x63-v20190710/optim_chin_morph_renamed2019-11-08.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/lts/LTS_Experiment-9862_20181211/lts_morp_2019-11-07_centered_no_axon.swc
+maxAxonVoxelCtr = 11
+maxDendVoxelCtr = 6
+Synapses: 2/125357 (heap size: 10)
+Flushing ./networks/tinySim//network-putative-synapses-MERGED.hdf5 data: network/synapses
+network/synapses new size (125357, 13)
+big_merge_lookup: done
+Doing bigMerge (lookup) for gapJunctions
+[0, 521, 1048576, 0.75]
+(0, 521, 20971520, 0.75)
+pruneSynapses called.
+pruneSynapses: synapseFile=<HDF5 file "network-putative-synapses-MERGED.hdf5" (mode None)>, outputFileName=None, rowRange=None (synapses)
+About to calculate block ranges (1 blocks)
+Find block ranges. From 0 to 125357 block size 125357
+synapse_range=[(0, 125357)]
+blockRanges=[(0, 125357)]
+Writing to ./networks/tinySim//network-pruned-synapses.hdf5
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/fs/str-fs-e161024_FS16-mDR-rat-Mar-13-08-1-536-R-v20190225/DR-rat-Mar-13-08-1-536-R-cor-rep.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150602_c1_D1-mWT-0728MSN01-v20190508/WT-0728MSN01-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c10_D1-mWT-P270-20-v20190521/WT-P270-20-15ak-cor.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c6_D1-m21-6-DE-v20190503/21-6-DE-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c9_d1-mWT-1215MSN03-v20190521/WT-1215MSN03-cor-rep-ax2.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150908_c4_D2-m51-5-DE-v20190611/51-5-DE-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150917_c11_D2-mWT-MSN1-v20190603/WT-MSN1-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e151123_c1_D2-mWT-P270-09-v20190527/WT-P270-09-15ak-cor.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e160118_c10_D2-m46-3-DE-v20190529/46-3-DE-cor-rep-ax.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/chin/str-chin-e170614_cell6-m17JUL301751_170614_no6_MD_cell_1_x63-v20190710/optim_chin_morph_renamed2019-11-08.swc
+Saving morphology in HDF5 file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/lts/LTS_Experiment-9862_20181211/lts_morp_2019-11-07_centered_no_axon.swc
+Pruning range : (0, 125357)
+Number of synapses removed where synapse connection not allowed: 0
+Number of synapses removed due to distance dependent pruning: 31305
+Number of synapses removed randomly: 78275
+Number of synapses removed due to too many synapses between connected pair: 933
+Number of synapses removed due to too few synapses between connected pairs: 5138
+Number of synapses removed where all synapses between pairs are removed: 2683
+pruneSynapses called.
+pruneSynapses: No gapJunctions skipping pruning
+Voxel overflows: 0 (should be zero)
+Synapses before pruning: 125357
+Synapses after pruning: 7023 (5.6 % kept)
+No gap junctions to prune.
+Cleaning up old merge files
+Total duration: 2.867399499984458
+
+Program run time: 2.9145090880338103
++ snudda input ./networks/tinySim --input snudda/data/config/input-tinytest-v8.json --time 1.0
+Setting up inputs, assuming input.json exists
+Using runID = 12
+Writing input spikes to ./networks/tinySim/input-spikes.hdf5
+Time = 1.0
+Setting random seed: None
+Using hdf5 version latest
+Loading HDF5-file: ./networks/tinySim/network-pruned-synapses.hdf5
+Loading input configuration from snudda/data/config/input-tinytest-v8.json
+Reading neuron postions
+Loading ./networks/tinySim/network-neuron-positions.hdf5
+No SlurmID set, using -1
+Load done. 0.009765384020283818
+Reading config file ./networks/tinySim/network-config.json
+IPYTHON_PROFILE = None
+No IPYTHON_PROFILE environment variable set, running in serial
+Running makePopulationUnitSpikeTrains
+Running makeNeuronInputParallell
+Clearing populationUnitSpikesList, thus all neurons will have their own mother process for each input
+Running input generation in serial
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c6_D1-m21-6-DE-v20190503/21-6-DE-cor-rep-ax-cache.pickle
+Generating 180 inputs for dSPN_2
+Gathering 0 - CorticalBase
+Generating 84 inputs for dSPN_2
+Gathering 0 - CorticalSignal
+Generating 101 inputs for dSPN_2
+Gathering 0 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c10_D1-mWT-P270-20-v20190521/WT-P270-20-15ak-cor-cache.pickle
+Generating 203 inputs for dSPN_1
+Gathering 1 - CorticalBase
+Generating 96 inputs for dSPN_1
+Gathering 1 - CorticalSignal
+Generating 110 inputs for dSPN_1
+Gathering 1 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e151123_c1_D2-mWT-P270-09-v20190527/WT-P270-09-15ak-cor-cache.pickle
+Generating 143 inputs for iSPN_2
+Gathering 2 - CorticalBase
+Generating 55 inputs for iSPN_2
+Gathering 2 - CorticalSignal
+Generating 92 inputs for iSPN_2
+Gathering 2 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150908_c4_D2-m51-5-DE-v20190611/51-5-DE-cor-rep-ax-cache.pickle
+Generating 101 inputs for iSPN_0
+Gathering 3 - CorticalBase
+Generating 31 inputs for iSPN_0
+Gathering 3 - CorticalSignal
+Generating 83 inputs for iSPN_0
+Gathering 3 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e160118_c10_D2-m46-3-DE-v20190529/46-3-DE-cor-rep-ax-cache.pickle
+Generating 71 inputs for iSPN_3
+Gathering 4 - CorticalBase
+Generating 24 inputs for iSPN_3
+Gathering 4 - CorticalSignal
+Generating 66 inputs for iSPN_3
+Gathering 4 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150602_c1_D1-mWT-0728MSN01-v20190508/WT-0728MSN01-cor-rep-ax-cache.pickle
+Generating 223 inputs for dSPN_0
+Gathering 5 - CorticalBase
+Generating 82 inputs for dSPN_0
+Gathering 5 - CorticalSignal
+Generating 124 inputs for dSPN_0
+Gathering 5 - Thalamic
+Generating 126 inputs for iSPN_2
+Gathering 6 - CorticalBase
+Generating 65 inputs for iSPN_2
+Gathering 6 - CorticalSignal
+Generating 95 inputs for iSPN_2
+Gathering 6 - Thalamic
+Generating 203 inputs for dSPN_2
+Gathering 7 - CorticalBase
+Generating 75 inputs for dSPN_2
+Gathering 7 - CorticalSignal
+Generating 111 inputs for dSPN_2
+Gathering 7 - Thalamic
+Generating 86 inputs for iSPN_3
+Gathering 8 - CorticalBase
+Generating 31 inputs for iSPN_3
+Gathering 8 - CorticalSignal
+Generating 63 inputs for iSPN_3
+Gathering 8 - Thalamic
+Generating 112 inputs for iSPN_2
+Gathering 9 - CorticalBase
+Generating 45 inputs for iSPN_2
+Gathering 9 - CorticalSignal
+Generating 102 inputs for iSPN_2
+Gathering 9 - Thalamic
+Generating 100 inputs for iSPN_0
+Gathering 10 - CorticalBase
+Generating 27 inputs for iSPN_0
+Gathering 10 - CorticalSignal
+Generating 90 inputs for iSPN_0
+Gathering 10 - Thalamic
+Generating 212 inputs for dSPN_0
+Gathering 11 - CorticalBase
+Generating 80 inputs for dSPN_0
+Gathering 11 - CorticalSignal
+Generating 134 inputs for dSPN_0
+Gathering 11 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/ispn/str-ispn-e150917_c11_D2-mWT-MSN1-v20190603/WT-MSN1-cor-rep-ax-cache.pickle
+Generating 154 inputs for iSPN_1
+Gathering 12 - CorticalBase
+Generating 58 inputs for iSPN_1
+Gathering 12 - CorticalSignal
+Generating 126 inputs for iSPN_1
+Gathering 12 - Thalamic
+Generating 201 inputs for dSPN_0
+Gathering 13 - CorticalBase
+Generating 74 inputs for dSPN_0
+Gathering 13 - CorticalSignal
+Generating 141 inputs for dSPN_0
+Gathering 13 - Thalamic
+Generating 237 inputs for dSPN_1
+Gathering 14 - CorticalBase
+Generating 92 inputs for dSPN_1
+Gathering 14 - CorticalSignal
+Generating 114 inputs for dSPN_1
+Gathering 14 - Thalamic
+Generating 150 inputs for iSPN_2
+Gathering 15 - CorticalBase
+Generating 47 inputs for iSPN_2
+Gathering 15 - CorticalSignal
+Generating 104 inputs for iSPN_2
+Gathering 15 - Thalamic
+Generating 205 inputs for dSPN_1
+Gathering 16 - CorticalBase
+Generating 81 inputs for dSPN_1
+Gathering 16 - CorticalSignal
+Generating 106 inputs for dSPN_1
+Gathering 16 - Thalamic
+Generating 86 inputs for iSPN_3
+Gathering 17 - CorticalBase
+Generating 32 inputs for iSPN_3
+Gathering 17 - CorticalSignal
+Generating 69 inputs for iSPN_3
+Gathering 17 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/dspn/str-dspn-e150917_c9_d1-mWT-1215MSN03-v20190521/WT-1215MSN03-cor-rep-ax2-cache.pickle
+Generating 255 inputs for dSPN_3
+Gathering 18 - CorticalBase
+Generating 90 inputs for dSPN_3
+Gathering 18 - CorticalSignal
+Generating 147 inputs for dSPN_3
+Gathering 18 - Thalamic
+Generating 164 inputs for iSPN_1
+Gathering 19 - CorticalBase
+Generating 64 inputs for iSPN_1
+Gathering 19 - CorticalSignal
+Generating 130 inputs for iSPN_1
+Gathering 19 - Thalamic
+Generating 218 inputs for dSPN_0
+Gathering 20 - CorticalBase
+Generating 95 inputs for dSPN_0
+Gathering 20 - CorticalSignal
+Generating 134 inputs for dSPN_0
+Gathering 20 - Thalamic
+Generating 254 inputs for dSPN_3
+Gathering 21 - CorticalBase
+Generating 108 inputs for dSPN_3
+Gathering 21 - CorticalSignal
+Generating 129 inputs for dSPN_3
+Gathering 21 - Thalamic
+Generating 64 inputs for iSPN_3
+Gathering 22 - CorticalBase
+Generating 33 inputs for iSPN_3
+Gathering 22 - CorticalSignal
+Generating 63 inputs for iSPN_3
+Gathering 22 - Thalamic
+Generating 87 inputs for iSPN_3
+Gathering 23 - CorticalBase
+Generating 28 inputs for iSPN_3
+Gathering 23 - CorticalSignal
+Generating 61 inputs for iSPN_3
+Gathering 23 - Thalamic
+Generating 62 inputs for iSPN_3
+Gathering 24 - CorticalBase
+Generating 41 inputs for iSPN_3
+Gathering 24 - CorticalSignal
+Generating 61 inputs for iSPN_3
+Gathering 24 - Thalamic
+Generating 79 inputs for iSPN_3
+Gathering 25 - CorticalBase
+Generating 34 inputs for iSPN_3
+Gathering 25 - CorticalSignal
+Generating 68 inputs for iSPN_3
+Gathering 25 - Thalamic
+Generating 91 inputs for iSPN_0
+Gathering 26 - CorticalBase
+Generating 44 inputs for iSPN_0
+Gathering 26 - CorticalSignal
+Generating 80 inputs for iSPN_0
+Gathering 26 - Thalamic
+Generating 245 inputs for dSPN_3
+Gathering 27 - CorticalBase
+Generating 118 inputs for dSPN_3
+Gathering 27 - CorticalSignal
+Generating 152 inputs for dSPN_3
+Gathering 27 - Thalamic
+Generating 139 inputs for iSPN_1
+Gathering 28 - CorticalBase
+Generating 70 inputs for iSPN_1
+Gathering 28 - CorticalSignal
+Generating 103 inputs for iSPN_1
+Gathering 28 - Thalamic
+Generating 75 inputs for iSPN_3
+Gathering 29 - CorticalBase
+Generating 33 inputs for iSPN_3
+Gathering 29 - CorticalSignal
+Generating 60 inputs for iSPN_3
+Gathering 29 - Thalamic
+Generating 97 inputs for iSPN_0
+Gathering 30 - CorticalBase
+Generating 33 inputs for iSPN_0
+Gathering 30 - CorticalSignal
+Generating 74 inputs for iSPN_0
+Gathering 30 - Thalamic
+Generating 222 inputs for dSPN_3
+Gathering 31 - CorticalBase
+Generating 89 inputs for dSPN_3
+Gathering 31 - CorticalSignal
+Generating 148 inputs for dSPN_3
+Gathering 31 - Thalamic
+Generating 173 inputs for iSPN_1
+Gathering 32 - CorticalBase
+Generating 74 inputs for iSPN_1
+Gathering 32 - CorticalSignal
+Generating 125 inputs for iSPN_1
+Gathering 32 - Thalamic
+Generating 210 inputs for dSPN_0
+Gathering 33 - CorticalBase
+Generating 92 inputs for dSPN_0
+Gathering 33 - CorticalSignal
+Generating 113 inputs for dSPN_0
+Gathering 33 - Thalamic
+Generating 213 inputs for dSPN_1
+Gathering 34 - CorticalBase
+Generating 87 inputs for dSPN_1
+Gathering 34 - CorticalSignal
+Generating 117 inputs for dSPN_1
+Gathering 34 - Thalamic
+Generating 107 inputs for iSPN_0
+Gathering 35 - CorticalBase
+Generating 50 inputs for iSPN_0
+Gathering 35 - CorticalSignal
+Generating 80 inputs for iSPN_0
+Gathering 35 - Thalamic
+Generating 124 inputs for iSPN_2
+Gathering 36 - CorticalBase
+Generating 61 inputs for iSPN_2
+Gathering 36 - CorticalSignal
+Generating 109 inputs for iSPN_2
+Gathering 36 - Thalamic
+Generating 136 inputs for iSPN_2
+Gathering 37 - CorticalBase
+Generating 47 inputs for iSPN_2
+Gathering 37 - CorticalSignal
+Generating 98 inputs for iSPN_2
+Gathering 37 - Thalamic
+Generating 108 inputs for iSPN_2
+Gathering 38 - CorticalBase
+Generating 58 inputs for iSPN_2
+Gathering 38 - CorticalSignal
+Generating 103 inputs for iSPN_2
+Gathering 38 - Thalamic
+Generating 141 inputs for iSPN_2
+Gathering 39 - CorticalBase
+Generating 54 inputs for iSPN_2
+Gathering 39 - CorticalSignal
+Generating 96 inputs for iSPN_2
+Gathering 39 - Thalamic
+Generating 220 inputs for dSPN_0
+Gathering 40 - CorticalBase
+Generating 77 inputs for dSPN_0
+Gathering 40 - CorticalSignal
+Generating 133 inputs for dSPN_0
+Gathering 40 - Thalamic
+Generating 268 inputs for dSPN_3
+Gathering 41 - CorticalBase
+Generating 105 inputs for dSPN_3
+Gathering 41 - CorticalSignal
+Generating 157 inputs for dSPN_3
+Gathering 41 - Thalamic
+Generating 181 inputs for iSPN_1
+Gathering 42 - CorticalBase
+Generating 83 inputs for iSPN_1
+Gathering 42 - CorticalSignal
+Generating 118 inputs for iSPN_1
+Gathering 42 - Thalamic
+Generating 234 inputs for dSPN_0
+Gathering 43 - CorticalBase
+Generating 78 inputs for dSPN_0
+Gathering 43 - CorticalSignal
+Generating 135 inputs for dSPN_0
+Gathering 43 - Thalamic
+Generating 102 inputs for iSPN_0
+Gathering 44 - CorticalBase
+Generating 34 inputs for iSPN_0
+Gathering 44 - CorticalSignal
+Generating 88 inputs for iSPN_0
+Gathering 44 - Thalamic
+Generating 200 inputs for dSPN_0
+Gathering 45 - CorticalBase
+Generating 88 inputs for dSPN_0
+Gathering 45 - CorticalSignal
+Generating 122 inputs for dSPN_0
+Gathering 45 - Thalamic
+Generating 193 inputs for dSPN_2
+Gathering 46 - CorticalBase
+Generating 57 inputs for dSPN_2
+Gathering 46 - CorticalSignal
+Generating 87 inputs for dSPN_2
+Gathering 46 - Thalamic
+Generating 229 inputs for dSPN_0
+Gathering 47 - CorticalBase
+Generating 78 inputs for dSPN_0
+Gathering 47 - CorticalSignal
+Generating 129 inputs for dSPN_0
+Gathering 47 - Thalamic
+Generating 253 inputs for dSPN_3
+Gathering 48 - CorticalBase
+Generating 100 inputs for dSPN_3
+Gathering 48 - CorticalSignal
+Generating 136 inputs for dSPN_3
+Gathering 48 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/lts/LTS_Experiment-9862_20181211/lts_morp_2019-11-07_centered_no_axon-cache.pickle
+Generating 3 inputs for LTS_0
+Gathering 49 - Cortical
+Generating 2 inputs for LTS_0
+Gathering 49 - CorticalSignal
+Generating 168 inputs for iSPN_1
+Gathering 50 - CorticalBase
+Generating 55 inputs for iSPN_1
+Gathering 50 - CorticalSignal
+Generating 112 inputs for iSPN_1
+Gathering 50 - Thalamic
+Generating 197 inputs for dSPN_2
+Gathering 51 - CorticalBase
+Generating 73 inputs for dSPN_2
+Gathering 51 - CorticalSignal
+Generating 92 inputs for dSPN_2
+Gathering 51 - Thalamic
+Generating 200 inputs for dSPN_0
+Gathering 52 - CorticalBase
+Generating 101 inputs for dSPN_0
+Gathering 52 - CorticalSignal
+Generating 147 inputs for dSPN_0
+Gathering 52 - Thalamic
+Generating 101 inputs for iSPN_0
+Gathering 53 - CorticalBase
+Generating 43 inputs for iSPN_0
+Gathering 53 - CorticalSignal
+Generating 105 inputs for iSPN_0
+Gathering 53 - Thalamic
+Generating 87 inputs for iSPN_0
+Gathering 54 - CorticalBase
+Generating 42 inputs for iSPN_0
+Gathering 54 - CorticalSignal
+Generating 86 inputs for iSPN_0
+Gathering 54 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/fs/str-fs-e161024_FS16-mDR-rat-Mar-13-08-1-536-R-v20190225/DR-rat-Mar-13-08-1-536-R-cor-rep-cache.pickle
+Generating 217 inputs for FSN_1
+Gathering 55 - Cortical
+Generating 80 inputs for FSN_1
+Gathering 55 - CorticalSignal
+Generating 187 inputs for FSN_1
+Gathering 55 - Thalamic
+Generating 161 inputs for iSPN_1
+Gathering 56 - CorticalBase
+Generating 57 inputs for iSPN_1
+Gathering 56 - CorticalSignal
+Generating 121 inputs for iSPN_1
+Gathering 56 - Thalamic
+Generating 158 inputs for iSPN_1
+Gathering 57 - CorticalBase
+Generating 48 inputs for iSPN_1
+Gathering 57 - CorticalSignal
+Generating 112 inputs for iSPN_1
+Gathering 57 - Thalamic
+Generating 72 inputs for iSPN_3
+Gathering 58 - CorticalBase
+Generating 30 inputs for iSPN_3
+Gathering 58 - CorticalSignal
+Generating 52 inputs for iSPN_3
+Gathering 58 - Thalamic
+Generating 202 inputs for dSPN_1
+Gathering 59 - CorticalBase
+Generating 90 inputs for dSPN_1
+Gathering 59 - CorticalSignal
+Generating 130 inputs for dSPN_1
+Gathering 59 - Thalamic
+Generating 186 inputs for dSPN_2
+Gathering 60 - CorticalBase
+Generating 79 inputs for dSPN_2
+Gathering 60 - CorticalSignal
+Generating 91 inputs for dSPN_2
+Gathering 60 - Thalamic
+Found cache file: /raid/jmxie/project/forkSnudda/snudda/data/cellspecs-v2/chin/str-chin-e170614_cell6-m17JUL301751_170614_no6_MD_cell_1_x63-v20190710/optim_chin_morph_renamed2019-11-08-cache.pickle
+Generating 1 inputs for ChIN_0
+Gathering 61 - Cortical
+Generating 3 inputs for ChIN_0
+Gathering 61 - CorticalSignal
+Generating 13 inputs for ChIN_0
+Gathering 61 - Thalamic
+Generating 253 inputs for dSPN_3
+Gathering 62 - CorticalBase
+Generating 92 inputs for dSPN_3
+Gathering 62 - CorticalSignal
+Generating 135 inputs for dSPN_3
+Gathering 62 - Thalamic
+Generating 205 inputs for dSPN_0
+Gathering 63 - CorticalBase
+Generating 74 inputs for dSPN_0
+Gathering 63 - CorticalSignal
+Generating 128 inputs for dSPN_0
+Gathering 63 - Thalamic
+Generating 163 inputs for dSPN_2
+Gathering 64 - CorticalBase
+Generating 65 inputs for dSPN_2
+Gathering 64 - CorticalSignal
+Generating 113 inputs for dSPN_2
+Gathering 64 - Thalamic
+Generating 208 inputs for dSPN_1
+Gathering 65 - CorticalBase
+Generating 107 inputs for dSPN_1
+Gathering 65 - CorticalSignal
+Generating 101 inputs for dSPN_1
+Gathering 65 - Thalamic
+Generating 74 inputs for iSPN_3
+Gathering 66 - CorticalBase
+Generating 44 inputs for iSPN_3
+Gathering 66 - CorticalSignal
+Generating 53 inputs for iSPN_3
+Gathering 66 - Thalamic
+Generating 130 inputs for iSPN_2
+Gathering 67 - CorticalBase
+Generating 54 inputs for iSPN_2
+Gathering 67 - CorticalSignal
+Generating 105 inputs for iSPN_2
+Gathering 67 - Thalamic
+Generating 193 inputs for dSPN_2
+Gathering 68 - CorticalBase
+Generating 73 inputs for dSPN_2
+Gathering 68 - CorticalSignal
+Generating 94 inputs for dSPN_2
+Gathering 68 - Thalamic
+Generating 204 inputs for dSPN_0
+Gathering 69 - CorticalBase
+Generating 80 inputs for dSPN_0
+Gathering 69 - CorticalSignal
+Generating 133 inputs for dSPN_0
+Gathering 69 - Thalamic
+Generating 251 inputs for dSPN_3
+Gathering 70 - CorticalBase
+Generating 97 inputs for dSPN_3
+Gathering 70 - CorticalSignal
+Generating 143 inputs for dSPN_3
+Gathering 70 - Thalamic
+Generating 157 inputs for iSPN_1
+Gathering 71 - CorticalBase
+Generating 65 inputs for iSPN_1
+Gathering 71 - CorticalSignal
+Generating 132 inputs for iSPN_1
+Gathering 71 - Thalamic
+Generating 107 inputs for iSPN_0
+Gathering 72 - CorticalBase
+Generating 50 inputs for iSPN_0
+Gathering 72 - CorticalSignal
+Generating 91 inputs for iSPN_0
+Gathering 72 - Thalamic
+Generating 194 inputs for dSPN_1
+Gathering 73 - CorticalBase
+Generating 87 inputs for dSPN_1
+Gathering 73 - CorticalSignal
+Generating 115 inputs for dSPN_1
+Gathering 73 - Thalamic
+Generating 223 inputs for dSPN_1
+Gathering 74 - CorticalBase
+Generating 93 inputs for dSPN_1
+Gathering 74 - CorticalSignal
+Generating 120 inputs for dSPN_1
+Gathering 74 - Thalamic
+Generating 93 inputs for iSPN_0
+Gathering 75 - CorticalBase
+Generating 31 inputs for iSPN_0
+Gathering 75 - CorticalSignal
+Generating 96 inputs for iSPN_0
+Gathering 75 - Thalamic
+Generating 283 inputs for dSPN_3
+Gathering 76 - CorticalBase
+Generating 108 inputs for dSPN_3
+Gathering 76 - CorticalSignal
+Generating 146 inputs for dSPN_3
+Gathering 76 - Thalamic
+Generating 108 inputs for iSPN_0
+Gathering 77 - CorticalBase
+Generating 46 inputs for iSPN_0
+Gathering 77 - CorticalSignal
+Generating 87 inputs for iSPN_0
+Gathering 77 - Thalamic
+Generating 225 inputs for dSPN_1
+Gathering 78 - CorticalBase
+Generating 98 inputs for dSPN_1
+Gathering 78 - CorticalSignal
+Generating 106 inputs for dSPN_1
+Gathering 78 - Thalamic
+Generating 282 inputs for dSPN_3
+Gathering 79 - CorticalBase
+Generating 98 inputs for dSPN_3
+Gathering 79 - CorticalSignal
+Generating 152 inputs for dSPN_3
+Gathering 79 - Thalamic
+Generating 139 inputs for iSPN_2
+Gathering 80 - CorticalBase
+Generating 48 inputs for iSPN_2
+Gathering 80 - CorticalSignal
+Generating 103 inputs for iSPN_2
+Gathering 80 - Thalamic
+Generating 200 inputs for dSPN_1
+Gathering 81 - CorticalBase
+Generating 72 inputs for dSPN_1
+Gathering 81 - CorticalSignal
+Generating 117 inputs for dSPN_1
+Gathering 81 - Thalamic
+Generating 78 inputs for iSPN_3
+Gathering 82 - CorticalBase
+Generating 32 inputs for iSPN_3
+Gathering 82 - CorticalSignal
+Generating 73 inputs for iSPN_3
+Gathering 82 - Thalamic
+Generating 214 inputs for dSPN_1
+Gathering 83 - CorticalBase
+Generating 97 inputs for dSPN_1
+Gathering 83 - CorticalSignal
+Generating 123 inputs for dSPN_1
+Gathering 83 - Thalamic
+Generating 254 inputs for dSPN_1
+Gathering 84 - CorticalBase
+Generating 88 inputs for dSPN_1
+Gathering 84 - CorticalSignal
+Generating 107 inputs for dSPN_1
+Gathering 84 - Thalamic
+Generating 150 inputs for iSPN_1
+Gathering 85 - CorticalBase
+Generating 57 inputs for iSPN_1
+Gathering 85 - CorticalSignal
+Generating 117 inputs for iSPN_1
+Gathering 85 - Thalamic
+Generating 178 inputs for dSPN_2
+Gathering 86 - CorticalBase
+Generating 76 inputs for dSPN_2
+Gathering 86 - CorticalSignal
+Generating 126 inputs for dSPN_2
+Gathering 86 - Thalamic
+Generating 154 inputs for iSPN_1
+Gathering 87 - CorticalBase
+Generating 59 inputs for iSPN_1
+Gathering 87 - CorticalSignal
+Generating 112 inputs for iSPN_1
+Gathering 87 - Thalamic
+Generating 284 inputs for dSPN_3
+Gathering 88 - CorticalBase
+Generating 91 inputs for dSPN_3
+Gathering 88 - CorticalSignal
+Generating 127 inputs for dSPN_3
+Gathering 88 - Thalamic
+Generating 120 inputs for iSPN_2
+Gathering 89 - CorticalBase
+Generating 46 inputs for iSPN_2
+Gathering 89 - CorticalSignal
+Generating 98 inputs for iSPN_2
+Gathering 89 - Thalamic
+Generating 92 inputs for iSPN_0
+Gathering 90 - CorticalBase
+Generating 45 inputs for iSPN_0
+Gathering 90 - CorticalSignal
+Generating 78 inputs for iSPN_0
+Gathering 90 - Thalamic
+Generating 270 inputs for dSPN_3
+Gathering 91 - CorticalBase
+Generating 110 inputs for dSPN_3
+Gathering 91 - CorticalSignal
+Generating 134 inputs for dSPN_3
+Gathering 91 - Thalamic
+Generating 82 inputs for iSPN_3
+Gathering 92 - CorticalBase
+Generating 35 inputs for iSPN_3
+Gathering 92 - CorticalSignal
+Generating 62 inputs for iSPN_3
+Gathering 92 - Thalamic
+Generating 178 inputs for dSPN_2
+Gathering 93 - CorticalBase
+Generating 65 inputs for dSPN_2
+Gathering 93 - CorticalSignal
+Generating 109 inputs for dSPN_2
+Gathering 93 - Thalamic
+Generating 187 inputs for dSPN_2
+Gathering 94 - CorticalBase
+Generating 74 inputs for dSPN_2
+Gathering 94 - CorticalSignal
+Generating 102 inputs for dSPN_2
+Gathering 94 - Thalamic
+Generating 189 inputs for dSPN_2
+Gathering 95 - CorticalBase
+Generating 68 inputs for dSPN_2
+Gathering 95 - CorticalSignal
+Generating 110 inputs for dSPN_2
+Gathering 95 - Thalamic
+Generating 183 inputs for iSPN_1
+Gathering 96 - CorticalBase
+Generating 64 inputs for iSPN_1
+Gathering 96 - CorticalSignal
+Generating 101 inputs for iSPN_1
+Gathering 96 - Thalamic
+Generating 180 inputs for dSPN_2
+Gathering 97 - CorticalBase
+Generating 64 inputs for dSPN_2
+Gathering 97 - CorticalSignal
+Generating 108 inputs for dSPN_2
+Gathering 97 - Thalamic
+Generating 127 inputs for iSPN_2
+Gathering 98 - CorticalBase
+Generating 51 inputs for iSPN_2
+Gathering 98 - CorticalSignal
+Generating 86 inputs for iSPN_2
+Gathering 98 - Thalamic
+Writing spikes to ./networks/tinySim/input-spikes.hdf5
+
+Program run time: 6.1835760390385985
++ mpiexec -np 2 python -m snudda.simulate ./networks/tinySim/network-pruned-synapses.hdf5 ./networks/tinySim/input-spikes.hdf5 --time 0.01 --voltOut ./networks/tinySim/simulation/volt.txt
+--------------------------------------------------------------------------
+WARNING: There is at least non-excluded one OpenFabrics device found,
+but there are no active ports detected (or Open MPI was unable to use
+them).  This is most certainly not what you wanted.  Check your
+cables, subnet manager configuration, etc.  The openib BTL will be
+ignored for this job.
+
+  Local host: dgxone
+--------------------------------------------------------------------------
+numprocs=2
+Failed to auto detect SlurmID, defaulting to 666
+slurm_id: 666-2-0-10ms
+Using networkFile: ./networks/tinySim/network-pruned-synapses.hdf5
+Using inputFile: ./networks/tinySim/input-spikes.hdf5
+Using logFile: ./networks/tinySim/network-simulation-log.txt
+Worker 0: Loading network from ./networks/tinySim/network-pruned-synapses.hdf5
+Loading ./networks/tinySim/network-pruned-synapses.hdf5
+Loading config data from HDF5
+Failed to auto detect SlurmID, defaulting to 666
+slurm_id: 666-2-1-10ms
+Using networkFile: ./networks/tinySim/network-pruned-synapses.hdf5
+Using inputFile: ./networks/tinySim/input-spikes.hdf5
+Using logFile: ./networks/tinySim/network-simulation-log.txt
+Worker 1: Loading network from ./networks/tinySim/network-pruned-synapses.hdf5
+Loading ./networks/tinySim/network-pruned-synapses.hdf5
+Loading config data from HDF5
+99 neurons with 7023 synapses and 0 gap junctions
+Load done. 0.05123655102215707
+Loading config file ./networks/tinySim/network-config.json
+0: Memory status: 81% free
+Distributing neurons.
+Setup neurons
+99 neurons with 7023 synapses and 0 gap junctions
+Load done. 0.05220512603409588
+Loading config file ./networks/tinySim/network-config.json
+1: Memory status: 81% free
+Distributing neurons.
+Setup neurons
+Node 1 - cell 1 dSPN_1
+Node 0 - cell 0 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 2 iSPN_2
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 3 iSPN_0
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 4 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 6 iSPN_2
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 5 dSPN_0
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 8 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 10 iSPN_0
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 7 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 9 iSPN_2
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 11 dSPN_0
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 12 iSPN_1
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 13 dSPN_0
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 14 dSPN_1
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 15 iSPN_2
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 16 dSPN_1
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 17 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 19 iSPN_1
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 18 dSPN_3
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 20 dSPN_0
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 21 dSPN_3
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 22 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 24 iSPN_3
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 23 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 26 iSPN_0
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 25 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 27 dSPN_3
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 28 iSPN_1
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 29 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 31 dSPN_3
+[dgxone:34791] 1 more process has sent help message help-mpi-btl-openib.txt / no active ports found
+[dgxone:34791] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 33 dSPN_0
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 30 iSPN_0
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 35 iSPN_0
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 32 iSPN_1
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 37 iSPN_2
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 34 dSPN_1
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 39 iSPN_2
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 36 iSPN_2
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 41 dSPN_3
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 38 iSPN_2
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 43 dSPN_0
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 40 dSPN_0
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 45 dSPN_0
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 42 iSPN_1
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 47 dSPN_0
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 49 LTS_0
+Neuron LTS_0 resting voltage = -75
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 51 dSPN_2
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 44 iSPN_0
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 53 iSPN_0
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 46 dSPN_2
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 55 FSN_1
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 48 dSPN_3
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 50 iSPN_1
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 52 dSPN_0
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 54 iSPN_0
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 56 iSPN_1
+Neuron FSN_1 resting voltage = -85
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 57 iSPN_1
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 58 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 60 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 62 dSPN_3
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 59 dSPN_1
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 64 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 66 iSPN_3
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 61 ChIN_0
+Neuron ChIN_0 resting voltage = -60
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 63 dSPN_0
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 68 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 70 dSPN_3
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 65 dSPN_1
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 72 iSPN_0
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 67 iSPN_2
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 69 dSPN_0
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 74 dSPN_1
+Neuron dSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 71 iSPN_1
+Node 0 - cell 76 dSPN_3
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 78 dSPN_1
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 73 dSPN_1
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 80 iSPN_2
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 75 iSPN_0
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 82 iSPN_3
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 84 dSPN_1
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 77 iSPN_0
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 86 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 88 dSPN_3
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 79 dSPN_3
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 90 iSPN_0
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 81 dSPN_1
+Neuron iSPN_0 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 92 iSPN_3
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 83 dSPN_1
+Neuron iSPN_3 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 94 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 96 iSPN_1
+Neuron dSPN_1 resting voltage = -87
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 85 iSPN_1
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 0 - cell 98 iSPN_2
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 87 iSPN_1
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+0: Memory status: 81% free
+Neuron iSPN_1 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 89 iSPN_2
+Neuron iSPN_2 resting voltage = -83
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 91 dSPN_3
+Neuron dSPN_3 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 93 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 95 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+Node 1 - cell 97 dSPN_2
+Neuron dSPN_2 resting voltage = -86
+!!! Popping extra segment from neuron -- temp fix!
+1: Memory status: 81% free
+connectNetworkSynapses
+connectNetworkSynapses
+Adding gap junctions.
+connectNetworkGapJunctionsLOCAL
+Finding node local gap junctions...
+Adding gap junctions.
+connectNetworkGapJunctionsLOCAL
+Finding node local gap junctions...
+0: Memory status: 81% free
+1: Memory status: 81% free
+Adding external (cortical, thalamic) input from ./networks/tinySim/input-spikes.hdf5
+Adding external (cortical, thalamic) input from ./networks/tinySim/input-spikes.hdf5
+0: Memory status: 81% free
+Adding somatic recordings
+1: Memory status: 81% free
+Adding somatic recordings
+[dgxone:34803] *** Process received signal ***
+[dgxone:34803] Signal: Segmentation fault (11)
+[dgxone:34803] Signal code:  (405166752)
+[dgxone:34803] Failing at address: 0x5ff44ca8
+[dgxone:34803] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x3ef20)[0x7fd382d62f20]
+[dgxone:34803] [ 1] /home/jmxie/install/x86_64/lib/libnrniv.so.0(+0xb3bbb)[0x7fd35a01abbb]
+[dgxone:34803] [ 2] /home/jmxie/install/x86_64/lib/libnrniv.so.0(+0xb3d85)[0x7fd35a01ad85]
+[dgxone:34803] [ 3] /home/jmxie/install/x86_64/lib/libnrnoc.so.0(nrn_finitialize+0x1f8)[0x7fd35b9c2288]
+[dgxone:34803] [ 4] /home/jmxie/install/x86_64/lib/libnrnoc.so.0(finitialize+0x3a)[0x7fd35b9c26aa]
+[dgxone:34803] [ 5] /home/jmxie/install/x86_64/lib/libnrnoc.so.0(hoc_call+0xc4)[0x7fd35b9d4b04]
+[dgxone:34803] [ 6] /home/jmxie/install/x86_64/lib/libnrnoc.so.0(hoc_execute+0x54)[0x7fd35b9d3a54]
+[dgxone:34803] [ 7] /home/jmxie/install/x86_64/lib/libnrnoc.so.0(hoc_call+0x19b)[0x7fd35b9d4bdb]
+[dgxone:34803] [ 8] /home/jmxie/install/x86_64/lib/libnrnoc.so.0(hoc_execute+0x54)[0x7fd35b9d3a54]
+[dgxone:34803] [ 9] /home/jmxie/install/x86_64/lib/libnrnoc.so.0(hoc_call+0x19b)[0x7fd35b9d4bdb]
+[dgxone:34803] [10] /home/jmxie/install/x86_64/lib/libnrnpython.so.0(+0x1682f)[0x7fd3681b382f]
+[dgxone:34803] [11] /home/jmxie/install/x86_64/lib/libnrniv.so.0(_ZN10OcJumpImpl7fpycallEPFPvS0_S0_ES0_S0_+0x3e)[0x7fd359fcfa2e]
+[dgxone:34803] [12] /home/jmxie/install/x86_64/lib/libnrnpython.so.0(+0x1038b)[0x7fd3681ad38b]
+[dgxone:34803] [13] python(_PyObject_FastCallKeywords+0x48b)[0x561e9003818b]
+[dgxone:34803] [14] python(_PyEval_EvalFrameDefault+0x52cf)[0x561e90087e8f]
+[dgxone:34803] [15] python(_PyEval_EvalCodeWithName+0x2f9)[0x561e8ffdc6f9]
+[dgxone:34803] [16] python(PyEval_EvalCodeEx+0x44)[0x561e8ffdd5f4]
+[dgxone:34803] [17] python(PyEval_EvalCode+0x1c)[0x561e8ffdd61c]
+[dgxone:34803] [18] python(+0x1d08bd)[0x561e900928bd]
+[dgxone:34803] [19] python(_PyMethodDef_RawFastCallKeywords+0xe9)[0x561e90022f99]
+[dgxone:34803] [20] python(_PyCFunction_FastCallKeywords+0x21)[0x561e90023231]
+[dgxone:34803] [21] python(_PyEval_EvalFrameDefault+0x4764)[0x561e90087324]
+[dgxone:34803] [22] python(_PyEval_EvalCodeWithName+0x2f9)[0x561e8ffdc6f9]
+[dgxone:34803] [23] python(_PyFunction_FastCallKeywords+0x325)[0x561e900228b5]
+[dgxone:34803] [24] python(_PyEval_EvalFrameDefault+0x416)[0x561e90082fd6]
+[dgxone:34803] [25] python(_PyEval_EvalCodeWithName+0x2f9)[0x561e8ffdc6f9]
+[dgxone:34803] [26] python(_PyFunction_FastCallDict+0x1d5)[0x561e8ffdd805]
+[dgxone:34803] [27] python(+0x215837)[0x561e900d7837]
+[dgxone:34803] [28] python(+0x227fcb)[0x561e900e9fcb]
+[dgxone:34803] [29] python(_Py_UnixMain+0x3c)[0x561e900ea0bc]
+[dgxone:34803] *** End of error message ***
+--------------------------------------------------------------------------
+mpiexec noticed that process rank 0 with PID 0 on node dgxone exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
