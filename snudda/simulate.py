@@ -1307,36 +1307,48 @@ class SnuddaSimulate(object):
     def add_recording(self, cell_id=None, side_len=None):
         self.write_log("Adding somatic recordings")
 
+        print("before 1309")
         if cell_id is None:
             cell_id = self.neuron_id
 
+        print("before 1313")
         # Does nothing if sideLen is not specified (otherwise, give neurons in
         # the centre)
         cell_id = self.centre_neurons(side_len=side_len, neuron_id=cell_id)
 
+        print("before 1317")
         # Only include neuron IDs on this worker, ie those in self.neuronID
         # (filtering in the if statement)
         cells = dict((k, self.neurons[k])
                      for k in cell_id if (not self.is_virtual_neuron[k]
                                           and k in self.neuron_id))
 
+        print("before self.t_save")
         if len(self.t_save) == 0 or self.t_save is None:
             self.t_save = self.sim.neuron.h.Vector()
             self.t_save.record(self.sim.neuron.h._ref_t)
 
+        print("before cellKey")
+        cellCnt = 0
         for cellKey in cells:
             cell = cells[cellKey]
             try:
                 v = self.sim.neuron.h.Vector()
                 # import pdb
                 # pdb.set_trace()
+                print(f"before v.record for cellKey {cellKey} cellCnt {cellCnt} celllen {len(cells)}")
                 v.record(getattr(cell.icell.soma[0](0.5), '_ref_v'))
+                print(f"after v.record for cellKey {cellKey} cellCnt {cellCnt} celllen {len(cells)}")
                 self.v_save.append(v)
                 self.v_key.append(cellKey)
+                print(f"cellKey {cellKey} done, cellCnt {cellCnt} celllen {len(cells)}")
+                cellCnt += 1
             except Exception as e:
                 self.write_log("Error: " + str(e))
                 import pdb
+                print("before pdb.set_trace")
                 pdb.set_trace()
+        print("loop done")
 
     ############################################################################
 
@@ -1851,9 +1863,13 @@ if __name__ == "__main__":
         os.mkdir(coredat_path)
     sim.pc.barrier()
     h.secondorder = 1
+    print("before cache efficient")
     h.cvode.cache_efficient(1)
+    print("after cache efficient")
     sim.pc.set_maxstep(10)
+    print("after set maxstep")
     h.stdinit()
+    print("after stdinit")
     if coredat_path is not None:
         print("begin to write cores...")
         sim.pc.nrnbbcore_write(coredat_path)
